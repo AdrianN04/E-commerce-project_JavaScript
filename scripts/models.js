@@ -1,19 +1,19 @@
 class Product {
-  constructor( descriere, imageUrl, disponibilitate, nume, pret, id) {
+  constructor( description, imageUrl, quantity, name, price, id) {
     this.id = id;
-    this.descriere = descriere;
-    this.pret = pret;
-    this.disponibilitate = disponibilitate;
-    this.nume = nume;
+    this.description = description;
+    this.price = price;
+    this.quantity = quantity;
+    this.name = name;
     this.imageUrl = imageUrl;
   }
 
   static fromServerProductModel(productsFromServer, id) {
     return new Product( //actual id from server
-      productsFromServer.nume, 
-      productsFromServer.disponibilitate,
-      productsFromServer.pret, 
-      productsFromServer.descriere, 
+      productsFromServer.name, 
+      productsFromServer.quantity,
+      productsFromServer.price, 
+      productsFromServer.description, 
       productsFromServer.imageUrl,       
       id);
   }

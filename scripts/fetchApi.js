@@ -10,7 +10,7 @@
          let convertedProducts = [];
          let productsIds = Object.keys(productsListFromServer);
          productsIds.forEach(productId => {
-           convertedProducts.push(Game.fromServerGameModel(productsListFromServer[productId], productId));
+           convertedProducts.push(Product.fromServerProductModel(productsListFromServer[productId], productId));
          })
          return convertedProducts;
        });

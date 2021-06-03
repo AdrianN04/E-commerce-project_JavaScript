@@ -1,59 +1,167 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Admin page</title>
-  <link
-  href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css"
-  rel="stylesheet"
-  integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x"
-  crossorigin="anonymous"
-/>
-<link
-  rel="stylesheet"
-  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
-/>
-<link rel="stylesheet" href="styles/index.css" />
-</head>
-<body>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fs-2">
-    <div class="container-fluid">
-      <div class="navbar-header" #id="title">
-        <a class="navbar-brand" href="">Adrian's Shopping site</a>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin page</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <link rel="stylesheet" href="../styles/admin.css" />
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fs-2">
+      <div class="container-fluid">
+        <div class="navbar-header" id="title">
+          <a class="navbar-brand" href="">Adrian's Shopping site</a>
+        </div>
+        <div class="nav navbar-nav" id="navbarToggler">
+          <a class="btn nav-link fs-2 ms-5" href="/HTML/shoppingCart.html"
+            >Shopping Cart</a
+          >
+        </div>
       </div>
-      <div class="nav navbar-nav" id="navbarToggler">
-            <a
-              class="btn nav-link fs-2 ms-5"
-              href="/HTML/shoppingCart.html"
-              >Shopping Cart</a
-            >
-      </div>
-    </div>
-  </nav>
-  <main class="container-fluid">
+    </nav>
+    <main class="container-fluid mt-5">
 
-    <form id="product-form" class="position-absolute w-50 top-50 start-50 translate-middle">
-        <div class="mb-3">
-            <label for="productNameInput" class="form-label">Name</label>
-            <input type="text" class="form-control" id="productNameInput" placeholder="Product Name" required>
+      <!-- Container of the modal button -->
+      <div class="row d-flex align-items-center justify-content-evenly">
+        <h3 class="col-lg-3 col-md-4 col-sm-12 text-center">Product List</h3>
+
+        <button type="button" class="col-lg-3 col-md-4 col-sm-12 btn btn-dark" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+          +Add Products
+        </button>
+      </div>
+
+      <!-- container for the products -->
+      <div class="table-responsive m-5">
+        <table class="table table-striped ">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Image</th>
+              <th scope="col">Name</th>
+              <th scope="col">Price</th>
+              <th scope="col">Quantity</th>
+              <th scope="col">Description</th>
+              <th scope="col">Functions</th>
+            </tr>
+          </thead>
+          <tbody id="tableBody">
+            <!-- <tr>
+              <th scope="row">1</th>
+              <td>Mark</td>
+              <td>Otto</td>
+              <td>@mdo</td>
+              <td>@mdo</td>
+              <td>@mdo</td>
+              <td>@mdo</td>
+            </tr> -->
+         
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Modal form to add products -->
+      <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog mw-900px">
+          <div class="modal-content">
+
+            <div class="modal-header">
+              <h3 class="modal-title">Add new items or update existing ones</h3>
+              <button
+                type="button"
+                class="btn-close bg-danger ms-2"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+
+            <div class="modal-body" id="product-form">
+              <!-- <form
+              id="product-form"> -->
+                  <div class="mb-3">
+                    <label for="productNameInput" class="form-label">Name:</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="productNameInput"
+                      placeholder="Product Name"
+                      required
+                    />
+                  </div>
+
+                  <div class="mb-3">
+                    <label for="productNameInput" class="form-label"
+                      >Image URL:</label
+                    >
+                    <input
+                      type="url"
+                      class="form-control"
+                      id="productImageURLInput"
+                      placeholder="Product Image URL"
+                      required
+                    />
+                  </div>
+
+                  <div class="mb-3">
+                    <label for="productNameInput" class="form-label">Price:</label>
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="productPriceInput"
+                      placeholder="Product Price"
+                      required
+                    />
+                  </div>
+
+                  <div class="mb-3">
+                    <label for="productNameInput" class="form-label"
+                      >Description:</label
+                    >
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="productDescriptionInput"
+                      placeholder="Product Description"
+                      required
+                    />
+                  </div>
+              </div>
+              <!--             
+              <button type="submit" class="btn btn-warning">Add Product</button>
+            </form> --> 
+
+            <div class="modal-footer">
+              <div class="btn-group mt-3" role="group" aria-label="Basic example">
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  id="reloadBtn"
+                >
+                <!-- data-bs-dismiss="modal" -->
+                  Reload
+                </button>
+                <button type="button" id="addProductsBtn" class="btn btn-primary">Add Item</button>
+              
+                <button type="button" id="updateBtn" class="btn btn-primary">Update Item</button>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="mb-3">
-            <label for="productNameInput" class="form-label">Image URL</label>
-            <input type="url" class="form-control" id="productImageURLInput" placeholder="Product Image URL" required>
-        </div>
-        <div class="mb-3">
-            <label for="productNameInput" class="form-label">Price</label>
-            <input type="number" class="form-control" id="productPriceInput" placeholder="Product Price" required>
-        </div>
-        <div class="mb-3">
-            <label for="productNameInput" class="form-label">Description</label>
-            <input type="text" class="form-control" id="productDescriptionInput" placeholder="Product Description" required>
-        </div>
-        <button type="submit" class="btn btn-warning">Submit</button>
-    </form>
-</main>
-</main>
-</body>
+      </div>
+
+
+    </main>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+
+    <script src="/scripts/fetchApi.js"></script>
+    <script src="/scripts/models.js"></script>
+    <script src="/scripts/admin.js"></script>
+  </body>
 </html>
