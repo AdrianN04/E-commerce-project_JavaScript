@@ -1,0 +1,51 @@
+@import url('https://fonts.googleapis.com/css2?family=Pattaya&display=swap');
+
+* {
+  box-sizing: border-box;
+  font-family: 'Pattaya', sans-serif;
+	list-style: none;
+	text-decoration: none;
+	margin: 0;
+	padding: 0;
+  font-size: 1.1rem;
+}
+
+body {
+  background-color: #e5e5e5;
+}
+
+
+#main-img {
+  margin: 0 auto;
+  
+}
+
+
+.bi, .far {
+  padding: 0.2rem;
+  margin: 0.5rem;
+  text-decoration: none;
+  background-color: blue;
+  color: red;
+  width: auto;
+}
+
+.fa {
+  text-decoration: none;
+  border-radius: 25%;
+  background-color: #00296b;
+  color: white;
+  padding: 0.5rem;
+  width: 2rem;
+  margin: 0.5rem 0.3rem;
+  transition: all 1s ease;
+}
+
+.fa-icons{
+  width: auto;
+  background-color: lightgreen;
+}
+
+button {
+  transition: all 1s ease-in;
+}
