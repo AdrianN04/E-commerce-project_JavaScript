@@ -1,6 +1,7 @@
  class FetchApi {
    constructor() {
-     this.baseUrl = "https://scoala-de-it-290fa-default-rtdb.europe-west1.firebasedatabase.app/";
+    //  this.baseUrl = "https://scoala-de-it-290fa-default-rtdb.europe-west1.firebasedatabase.app/";
+    this.baseUrl = "https://ecommerceproject-4554b-default-rtdb.europe-west1.firebasedatabase.app/";
    }
 
    getAllProducts() {
@@ -21,13 +22,13 @@
   //      .then(response => response.json())
   //  }
 
-  //  postGame(game) {
-  //    return fetch(this.baseUrl + '.json', {
-  //        method: "POST",
-  //        body: JSON.stringify(game)
-  //      })
-  //      .then(response => response.json())
-  //  }
+   postProduct(product) {
+     return fetch(this.baseUrl + '.json', {
+         method: "POST",
+         body: JSON.stringify(product)
+       })
+       .then(response => response.json())
+   }
 
   //  updateGame(game) {
   //    return fetch(this.baseUrl + game.id + '.json', {

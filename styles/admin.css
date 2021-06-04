@@ -1,8 +1,23 @@
+*{
+  box-sizing: border-box;
+}
 
+img {
+  max-width: 10vh;
+  max-height: 10vh;
+}
 
+td {
+  padding: 2rem;
+  margin: 1rem;
+}
 
   @media screen and (min-width: 676px) {
     .modal-dialog {
       max-width: 600px; /* New width for default modal */
     }
+}
+
+.invalid {
+  border: 1px solid red;
 }
