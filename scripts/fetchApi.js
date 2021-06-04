@@ -30,19 +30,19 @@
        .then(response => response.json())
    }
 
-  //  updateGame(game) {
-  //    return fetch(this.baseUrl + game.id + '.json', {
-  //        method: "PUT",
-  //        body: JSON.stringify(game)
-  //      })
-  //      .then(response => response.json());
-  //  }
+   updateProduct(product) {
+     return fetch(this.baseUrl + product.id + '.json', {
+         method: "PUT",
+         body: JSON.stringify(product)
+       })
+       .then(response => response.json());
+   }
 
-  //  deleteGames(id) {
-  //    return fetch(this.baseUrl + id + '.json', {
-  //        method: 'DELETE',
-  //      })
-  //      .then(response => response.json())
-  //  }
+   deleteProduct(id) {
+     return fetch(this.baseUrl + id + '.json', {
+         method: 'DELETE',
+       })
+       .then(response => response.json())
+   }
 
  }

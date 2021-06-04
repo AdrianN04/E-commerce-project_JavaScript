@@ -1,12 +1,13 @@
 const form = document.getElementById("product-form");
-const inputFields = document.querySelector('input');
 const addProductsBtn = document.getElementById("addProductsBtn");
 let productNameInput = document.getElementById("productNameInput");
 let productImageInput = document.getElementById("productImageURLInput");
 let productPriceInput = document.getElementById("productPriceInput");
 let productQuantityInput = document.getElementById("productQuantityInput");
 let productDescriptionInput = document.getElementById("productDescriptionInput");
-const reloadBtn = document.getElementById("reloadBtn");
+const resetFormBtn = document.getElementById("resetBtn");
+const showFormButton = document.getElementById("showFormButton");
+const updateProductBtn = document.getElementById("updateBtn");
 
 
 let fetchApi = new FetchApi();
@@ -16,11 +17,24 @@ let indexNumber = 0;
 
 window.addEventListener("load", loadAllProducts);
 
-addProductsBtn.addEventListener("click", (e)=> {
+addProductsBtn.addEventListener("click", (e) => {
   e.preventDefault();
   addAndSaveProducts();
 });
 
+showFormButton.addEventListener("click", showEmptyForm);
+
+resetFormBtn.addEventListener("click", emptyFormInputs);
+
+function emptyFormInputs() {
+  resetForm();
+  updateProductBtn.classList.add("collapse");
+  addProductsBtn.classList.remove("collapse");
+}
+
+function showEmptyForm() {
+  resetForm();
+}
 
 function loadAllProducts() {
   fetchApi.getAllProducts()
@@ -33,51 +47,45 @@ function loadAllProducts() {
 
 
 function addProductToTable(product) {
-  console.log(product);
- 
+  // console.log(product);
+
   indexNumber++;
   let tableBody = document.getElementById("tableBody");
 
   let tableRow = document.createElement("tr");
-  tableRow.setAttribute("id", "row-" + product.id);
+  tableRow.setAttribute("id", product.id);
   tableRow.setAttribute("class", "mt-3 align-middle");
-  // tableRow.innerHTML = `<th scope="row">${indexNumber}</th>
-  //                         <td><img src="${product.imageUrl}></td>
-  //                         <td>${product.name}</td>
-  //                         <td>${product.price}</td>
-  //                         <td>${product.quantity}</td> 
-  //                         <td>${product.description}</td>
-  //                         <td>${product.price}</td>`;
+
   let tableIndex = document.createElement("th");
   tableIndex.setAttribute("scope", "row");
   tableIndex.setAttribute("class", "text-center");
- 
-  // tableIndex.setAttribute("class", "d-flex justify-content-center");
   tableIndex.innerText = indexNumber;
   tableRow.appendChild(tableIndex);
 
   let tableImg = document.createElement("td");
-  // tableImg.setAttribute("src", product.imageUrl);
-  tableImg.innerHTML = `<img class src="${product.imageUrl}">`;
+  tableImg.innerHTML = `<img id="img-${product.id}" class="img-fluid" src="${product.imageUrl}">`;
   tableImg.setAttribute("class", "text-center");
   tableRow.appendChild(tableImg);
 
   let tableProductName = document.createElement("td");
   tableProductName.innerText = product.name;
   tableProductName.setAttribute("class", "text-center");
+  tableProductName.setAttribute("id", "name-" + product.id);
   tableRow.appendChild(tableProductName);
 
   let tableProductPrice = document.createElement("td");
   tableProductPrice.innerText = product.price;
   tableProductPrice.setAttribute("class", "text-center");
+  tableProductPrice.setAttribute("id", "price-" + product.id);
   tableRow.appendChild(tableProductPrice);
 
   let tableProductQuantity = document.createElement("td");
   tableProductQuantity.innerText = product.quantity;
   tableProductQuantity.setAttribute("class", "text-center");
+  tableProductQuantity.setAttribute("id", "quantity-" + product.id);
   tableRow.appendChild(tableProductQuantity);
 
- /*
+  /*
   let tableProductDescription = document.createElement("td");
   tableProductDescription.innerText = product.description;
   tableRow.appendChild(tableProductDescription);
@@ -86,28 +94,27 @@ function addProductToTable(product) {
   buttonsContainer.setAttribute("class", "btn-group mt-3");
   buttonsContainer.setAttribute("role", "group");
   buttonsContainer.setAttribute("aria-label", "Basic example");
-  
+
   let editBtn = document.createElement('button');
   editBtn.setAttribute('class', "btn btn-primary ms-3 bg-success");
   editBtn.innerText = "Edit";
   editBtn.addEventListener('click', (e) => {
     e.preventDefault();
-  
-    document.getElementById("showFormButton").click();
-    // editGameById(product.id);
+    showFormButton.click();
+    editProductById(product.id);
   });
 
   let deleteBtn = document.createElement('button');
   deleteBtn.setAttribute('class', "btn btn-primary bg-danger");
   deleteBtn.innerText = "Delete";
-  // deleteBtn.addEventListener("click", (e) => {
-  //   e.preventDefault();
-  //   if (gamesList.length < 3) {
-  //     console.log("You cannot delete games")
-  //   }else {
-  //     deleteSelectedGame(game.id);
-  //   };
-  // });
+  deleteBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    if (productsList.length < 3) {
+      console.log("You cannot delete games")
+    } else {
+      deleteSelectedProduct(product.id);
+    };
+  });
 
   buttonsContainer.appendChild(editBtn);
   buttonsContainer.appendChild(deleteBtn);
@@ -119,15 +126,15 @@ function addProductToTable(product) {
 
 function addAndSaveProducts() {
   let validation = validateForm();
-  if(validation === true) {
+  if (validation === true) {
     let addedProduct = getProductValuesFromForm();
     console.log(addedProduct);
     fetchApi.postProduct(addedProduct)
-    .then(()=> {
-      productsList.push(addedProduct);
-      resetForm();
-      addProductToTable(addedProduct);
-    });
+      .then(() => {
+        productsList.push(addedProduct);
+        resetForm();
+        addProductToTable(addedProduct);
+      });
   }
 }
 
@@ -152,7 +159,7 @@ function inputIsValid(inputField) {
     inputField.classList.add("invalid");
   } else {
     validation = true;
-    inputField.classList.remove("invalid")
+    inputField.classList.remove("invalid");
   };
   return validation;
 };
@@ -161,18 +168,93 @@ function inputIsValid(inputField) {
 function resetForm() {
   for (let i = 0; i < form.length; i++) {
     form[i].value = "";
+    form[i].classList.remove("invalid");
   };
 };
 
+//Function to create a new product based on the values from the input fields
 function getProductValuesFromForm() {
   let productImg = productImageInput.value.trim();
   let productName = productNameInput.value.trim();
   let productPrice = productPriceInput.value.trim();
   let productQuantity = productQuantityInput.value.trim();
   let productDescription = productDescriptionInput.value.trim();
- 
 
   let newProduct = new Product(productImg, productName, productPrice, productQuantity, productDescription);
 
   return newProduct;
+}
+
+
+function editProductById(productId) {
+  for (let i = 0; i < productsList.length; i++) {
+    if (productsList[i].id === productId) {
+      displaySelectedProductToForm(productsList[i]);
+
+      updateProductBtn.addEventListener("click", (e) => {
+        e.preventDefault();
+        saveUpdatedProduct(productsList[i]);
+      });
+    };
+  };
+};
+
+//Function to fill the content of the inputs with the values from the stored product that we want to edit
+function displaySelectedProductToForm(product) {
+  productImageInput.value = product.imageUrl;
+  productNameInput.value = product.name;
+  productPriceInput.value = product.price;
+  productQuantityInput.value = product.quantity;
+  productDescriptionInput.value = product.description;
+  updateProductBtn.classList.remove("collapse");
+  addProductsBtn.classList.add("collapse");
+
+};
+
+
+function saveUpdatedProduct(product) {
+  let validation = validateForm();
+
+  if (validation) {
+    let updatedProductObj = getProductValuesFromForm();
+    updatedProductObj.id = product.id;
+
+    fetchApi.updateProduct(updatedProductObj)
+      .then(() => {
+        resetForm();
+        updateProductInterface(product, updatedProductObj);
+      });
+  };
+}
+
+function updateProductInterface(product, updatedProductObj) {
+
+  updateProductBtn.classList.add("collapse");
+  addProductsBtn.classList.remove("collapse");
+  product.imageUrl = updatedProductObj.imageUrl;
+  product.name = updatedProductObj.name;
+  product.price = updatedProductObj.price;
+  product.quantity = updatedProductObj.quantity;
+  product.description = updatedProductObj.description;
+
+  document.getElementById("img-" + product.id).setAttribute("src", product.imageUrl);
+  document.getElementById("name-" + product.id).innerText = product.name;
+  document.getElementById("price-" + product.id).innerText = product.price;
+  document.getElementById("quantity-" + product.id).innerText = product.quantity;
+};
+
+function deleteSelectedProduct(productId) {
+  fetchApi.deleteProduct(productId)
+    .then((removeProductById(productId)));
+};
+
+function removeProductById(id) {
+  for (let i = 0; i < productsList.length; i++) {
+    if (productsList[i].id === id) {
+      productsList.splice(i, 1);
+      let node = document.getElementById(id);
+      node.parentNode.removeChild(node);
+    };
+  };
+ 
 }
