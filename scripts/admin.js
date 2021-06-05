@@ -68,10 +68,21 @@ function addProductToTable(product) {
   tableRow.appendChild(tableImg);
 
   let tableProductName = document.createElement("td");
-  tableProductName.innerText = product.name;
+  tableProductName.setAttribute("class", "text-center");
   tableProductName.setAttribute("class", "text-center");
   tableProductName.setAttribute("id", "name-" + product.id);
+  //creating button for details page
+  let detailsButton = document.createElement("button");
+  detailsButton.innerText = product.name;
+  detailsButton.setAttribute("class", "btn text-info");
+  detailsButton.setAttribute("id", "button-" + product.id);
+  tableProductName.appendChild(detailsButton);
   tableRow.appendChild(tableProductName);
+  //EventListener to got to the details page
+  detailsButton.addEventListener("click", (e) => {
+    e.preventDefault();
+    goToDetailsPage(product.id);
+  });
 
   let tableProductPrice = document.createElement("td");
   tableProductPrice.innerText = product.price;
@@ -90,13 +101,18 @@ function addProductToTable(product) {
   tableProductDescription.innerText = product.description;
   tableRow.appendChild(tableProductDescription);
 */
+  let buttonsColumn = document.createElement("td");
+  buttonsColumn.setAttribute("class", "text-center");
+  tableRow.appendChild(buttonsColumn);
+
   let buttonsContainer = document.createElement("div");
-  buttonsContainer.setAttribute("class", "btn-group mt-3");
+  buttonsContainer.setAttribute("class", "btn-group");
   buttonsContainer.setAttribute("role", "group");
   buttonsContainer.setAttribute("aria-label", "Basic example");
+  buttonsColumn.appendChild(buttonsContainer);
 
   let editBtn = document.createElement('button');
-  editBtn.setAttribute('class', "btn btn-primary ms-3 bg-success");
+  editBtn.setAttribute('class', "btn btn-primary  bg-success");
   editBtn.innerText = "Edit";
   editBtn.addEventListener('click', (e) => {
     e.preventDefault();
@@ -105,7 +121,7 @@ function addProductToTable(product) {
   });
 
   let deleteBtn = document.createElement('button');
-  deleteBtn.setAttribute('class', "btn btn-primary bg-danger");
+  deleteBtn.setAttribute('class', "btn btn-primary ms-3 bg-danger");
   deleteBtn.innerText = "Delete";
   deleteBtn.addEventListener("click", (e) => {
     e.preventDefault();
@@ -118,7 +134,6 @@ function addProductToTable(product) {
 
   buttonsContainer.appendChild(editBtn);
   buttonsContainer.appendChild(deleteBtn);
-  tableRow.appendChild(buttonsContainer);
 
   tableBody.appendChild(tableRow);
 
@@ -257,4 +272,9 @@ function removeProductById(id) {
     };
   };
  
+}
+
+
+function goToDetailsPage(id) {
+  window.open("detailsPage.html?id=" + id);
 }

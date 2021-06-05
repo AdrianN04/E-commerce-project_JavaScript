@@ -1,7 +1,18 @@
 @import "index.css";
 
 
+body{
+  background-color: antiquewhite;
+}
+
 img {
   width: 100%;
-  max-width: 90%;
+  max-width: 80%;
+  border-radius: 10%;
+}
+
+#productDetails {
+  background-color: #e5e5e5;
+  padding: 5rem;
+  border-radius: 10%;
 }
