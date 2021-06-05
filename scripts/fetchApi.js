@@ -17,10 +17,10 @@
        });
    }
 
-  //  getGame(id) {
-  //    return fetch(this.baseUrl + id + '.json')
-  //      .then(response => response.json())
-  //  }
+   getProduct(id) {
+     return fetch(this.baseUrl + id + '.json')
+       .then(response => response.json())
+   }
 
    postProduct(product) {
      return fetch(this.baseUrl + '.json', {
