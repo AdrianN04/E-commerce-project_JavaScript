@@ -14,21 +14,10 @@ body {
   background-color: #e5e5e5;
 }
 
-
-#main-img {
-  margin: 0 auto;
-  
+main {
+  margin-top: 7rem;
 }
 
-
-.bi, .far {
-  padding: 0.2rem;
-  margin: 0.5rem;
-  text-decoration: none;
-  background-color: blue;
-  color: red;
-  width: auto;
-}
 
 .fa {
   text-decoration: none;
