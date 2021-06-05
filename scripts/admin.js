@@ -276,5 +276,6 @@ function removeProductById(id) {
 
 
 function goToDetailsPage(id) {
-  window.open("detailsPage.html?id=" + id);
+  // window.open("detailsPage.html?id=" + id);
+  window.location.href= "detailsPage.html?id=" + id;
 }

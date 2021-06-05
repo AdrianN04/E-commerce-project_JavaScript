@@ -49,3 +49,25 @@ body {
 button {
   transition: all 1s ease-in;
 }
+
+.fa-google{
+  background-color: #f94144;
+  color: #f8961e;
+  border-radius: 50%;
+}
+
+
+.fa-youtube{
+  background-color: #d90429;
+  border-radius: 50%;
+}
+
+.fa-instagram {
+  background-color: #d3d3d3;
+  color: #f48c06;
+}
+
+.fa-linkedin {
+  padding: 0.5rem;
+  width: 2rem;
+}
