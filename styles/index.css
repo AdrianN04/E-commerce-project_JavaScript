@@ -17,11 +17,11 @@ body {
 img {
   max-height: 60%;
 }
+
 main {
   margin-top: 7rem;
   margin-bottom: 7rem;
 }
-
 
 .fa {
   text-decoration: none;
@@ -49,7 +49,6 @@ button {
   border-radius: 50%;
 }
 
-
 .fa-youtube{
   background-color: #d90429;
   border-radius: 50%;
@@ -64,3 +63,13 @@ button {
   padding: 0.5rem;
   width: 2rem;
 }
+
+.fa-store {
+  background-color: #f94144;
+  color: green;
+}
+
+.fa-dollar-sign {
+  color: green;
+}
+
