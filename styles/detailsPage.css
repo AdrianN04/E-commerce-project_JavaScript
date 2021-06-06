@@ -1,18 +1,17 @@
 @import "index.css";
 
-
-body{
-  background-color: antiquewhite;
+body {
+  height: 100vh;
 }
 
 img {
-  width: 100%;
+  width: 90%;
   max-width: 80%;
   border-radius: 10%;
 }
 
 #productDetails {
   background-color: #e5e5e5;
-  padding: 5rem;
+  padding: 3rem;
   border-radius: 10%;
 }

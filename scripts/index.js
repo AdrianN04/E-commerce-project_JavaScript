@@ -25,7 +25,7 @@ function addProductsToDom(product) {
   <p><i class="fas fa-dollar-sign"></i> ${product.price}</p> `;
   let detailsButton = document.createElement("button");
   detailsButton.innerText = "Details";
-  detailsButton.setAttribute("class", "btn btn-primary");
+  detailsButton.setAttribute("class", "btn bg-success");
   container.appendChild(detailsButton);
   detailsButton.addEventListener("click", (e) => {
     e.preventDefault();
