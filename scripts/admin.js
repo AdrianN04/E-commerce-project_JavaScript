@@ -236,8 +236,8 @@ function saveUpdatedProduct(product) {
 
     fetchApi.updateProduct(updatedProductObj)
       .then(() => {
-        resetForm();
         updateProductInterface(product, updatedProductObj);
+        resetForm();
       });
   };
 }

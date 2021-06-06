@@ -2,7 +2,7 @@
 const queryString = window.location.search;
 let urlParam = new URLSearchParams(queryString);
 let idRecieved = urlParam.get('id');
-console.log(idRecieved);
+// console.log(idRecieved);
 
 // HTML variables
 const detailsContainer = document.getElementById('detailsContainer');
@@ -20,15 +20,11 @@ function getResourcesFromPage() {
 }
 
 function displayProductDetails(product) {
-  console.log(product);
-  // let imageContainer = document.createElement("div");
-  // imageContainer.setAttribute("class", "mt-5 text-center col col-lg-4 col-md-6 col-sm-10");
+  // console.log(product);
   document.getElementById("imageContainer").innerHTML = `<img
   class="img-fluid"
   src="${product.imageUrl}"/>`;
- 
-
-  
+   
   document.getElementById("productDetails").innerHTML = `<h2 id="productName" class="container-fluid text-center">
   ${product.name}
   </h2>
@@ -40,7 +36,7 @@ function displayProductDetails(product) {
   </p>
   <p id="productQuantity" class="container-fluid text-center">
   Available products in stoc: ${product.quantity}</p>
-  <div class="col-sm-6 m-auto">
+  <div class="col-sm-8 m-auto">
     <div class="input-group">
       <div class="input-group-text bg-info">Quantity</div>
       <input type="number" class="form-control"  min="1" id="" placeholder="7...">

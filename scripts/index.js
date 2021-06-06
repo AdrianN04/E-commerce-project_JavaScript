@@ -3,7 +3,7 @@ let fetchApi = new FetchApi();
 let productsList = [];
 
 //HTML variables
-const mainContainer = document.querySelector("main");
+const rowContainer = document.getElementById("rowContainer");
 
 //Event Listener to get all products from server
 window.addEventListener("load", getAndDisplayProducts);
@@ -19,10 +19,23 @@ function addProductsToDom(product) {
   console.log(product);
   let container = document.createElement('div');
   container.setAttribute("id", product.id);
-  container.setAttribute("class", "col col-lg-3 col-md-4 col-sm-6");
-  // container.innerHTML = ``
+  container.setAttribute("class", "text-center mt-2 col col-lg-3 col-md-4 col-sm-6");
+  container.innerHTML = `<img class=" img-fluid" src="${product.imageUrl}">
+  <h2>${product.name}</h2>
+  <p>${product.price}</p> `;
+  let detailsButton = document.createElement("button");
+  detailsButton.innerText = "Details";
+  container.appendChild(detailsButton);
+  detailsButton.addEventListener("click", (e) => {
+    e.preventDefault();
+    goToDetailsPage(product.id);
+  });
+
+  rowContainer.appendChild(container);
+}
 
 
-  mainContainer.appendChild(container);
-
+function goToDetailsPage(id) {
+  // window.open("detailsPage.html?id=" + id);
+  window.location.href= "HTML/detailsPage.html?id=" + id;
 }
