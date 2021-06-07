@@ -28,7 +28,7 @@
       <div class="container-fluid">
         <div class="navbar-header" id="title">
           <a class="navbar-brand ms-5" href="../index.html"
-            >Adrian's Shopping site</a
+            >Adrian's site</a
           >
         </div>
         <div class="nav navbar-nav" id="navbarToggler">
@@ -40,6 +40,7 @@
     </nav>
 
     <main class="container-fluid">
+      <h2 id="success" class="text-center collapse mt-5"></h2>
       <div id="detailsContainer" class="row d-flex align-items-center justify-content-evenly">
         <div id="imageContainer" class="mt-5 text-center col col-lg-4 col-md-6 col-sm-10">
           <!-- <img
@@ -49,7 +50,8 @@
         </div>
 
         <div id="productDetails" class="mt-5 col col-lg-4 col-md-6 col-sm-10">
-          <!-- <h2 id="productName" class="container-fluid text-center">
+          
+          <h2 id="productName" class="container-fluid text-center">
             Product name
           </h2>
           <p id="productDescription" class="container-fluid text-center">
@@ -60,17 +62,18 @@
           </p>
           <p id="productQuantity" class="container-fluid text-center">
            Available products in stoc: 120
-          </p>
-          <div class="col-sm-6 m-auto">
+          </p> 
+           <div class="col-sm-8 m-auto">
             <div class="input-group">
-              <div class="input-group-text">Quantity</div>
+              <div class="input-group-text bg-info">Quantity</div>
               <input type="number" class="form-control"  min="1" id="specificSizeInputGroupUsername" placeholder="7...">
             </div>
+            <p id="message"></p>
           </div>
           <div class="mt-3 text-center">
-          <button type="button" class="btn btn-primary">Add to Cart</button>
+          <button id="cartButtonContainer" type="button" class="btn btn-primary">Add to Cart</button>
           </div>        
-        </div>  -->
+        </div> 
       </div>
     </main>
 
