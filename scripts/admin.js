@@ -51,10 +51,11 @@ function addProductToTable(product) {
 
   indexNumber++;
   let tableBody = document.getElementById("tableBody");
+  
 
   let tableRow = document.createElement("tr");
   tableRow.setAttribute("id", product.id);
-  tableRow.setAttribute("class", "mt-3 align-middle");
+  tableRow.setAttribute("class", "mt-3 align-middle container-fluid");
 
   let tableIndex = document.createElement("th");
   tableIndex.setAttribute("scope", "row");
@@ -96,11 +97,6 @@ function addProductToTable(product) {
   tableProductQuantity.setAttribute("id", "quantity-" + product.id);
   tableRow.appendChild(tableProductQuantity);
 
-  /*
-  let tableProductDescription = document.createElement("td");
-  tableProductDescription.innerText = product.description;
-  tableRow.appendChild(tableProductDescription);
-*/
   let buttonsColumn = document.createElement("td");
   buttonsColumn.setAttribute("class", "text-center");
   tableRow.appendChild(buttonsColumn);
