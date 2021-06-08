@@ -1,5 +1,7 @@
-*{
-  box-sizing: border-box;
+@import "index.css";
+
+main {
+  margin-top: 7rem;
 }
 
 img {

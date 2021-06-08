@@ -16,17 +16,10 @@ img {
   border-radius: 10%;
 }
 
-
 .alert{
   color: red;
   display: block;
 }
-
-.success{
-  /* color:rgb(32, 184, 32); */
-  display: block;
-}
-
 
 @media screen and (max-width: 440px) {
   #detailsContainer {

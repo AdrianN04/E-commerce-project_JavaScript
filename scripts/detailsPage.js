@@ -7,7 +7,6 @@ let idRecieved = urlParam.get('id');
 // HTML variables
 const detailsContainer = document.getElementById('detailsContainer');
 let productInput = document.querySelector("input");
-// cartButtonContainer = document.getElementById("cartButtonContainer");
 
 //fetch
 let fetchProductApi = new FetchApi();
@@ -58,15 +57,36 @@ function displayProductDetails(product) {
   document.getElementById("cartButtonContainer").addEventListener("click", (e) => {
     e.preventDefault();
       let input = checkInput(product);
-      console.log(input)
-      // setProductsToLocalStorage(product);
+      if(input !== undefined) {
+        console.log(input)
+        // setProductsToLocalStorage(product);
+      }
+      
   });
 }
-
 
 function checkInput(product) {
   let alert =  document.getElementById("alert");
   let message = document.getElementById("message");
+  // let valueFromInput = productInput.value;
+  // switch(valueFromInput) {
+  //   case valueFromInput = "":
+  //     showAction(message, `Please add the number of products &#128513;`, false);
+  //     break;
+  //   case parseInt(valueFromInput) < 1:
+  //     showAction(alert, "Please insert a valid number!", false);
+  //     message.classList.add("collapse");
+  //     break;
+  //   case parseInt(valueFromInput) > parseInt(product.quantity):
+  //     showAction(alert, "Over stock limit!", false);
+  //       message.classList.add("collapse");
+  //       break;
+  //   default:
+  //     showAction(message, `${productInput.value} x ${product.name} added to your shopping cart &#128513;`, true);
+  //   return productInput.value;
+  //       break;
+  // }
+
   if(productInput.value === ""){
     showAction(message, `Please add the number of products &#128513;`, false);
   }else {
@@ -89,14 +109,9 @@ function checkInput(product) {
 
 function showAction(element, text, value) {
   if (value === true) {
-    // element.classList.add('success');
     element.classList.remove("collapse");
     element.innerHTML = text;
     productInput.value = '';
-    // setTimeout(function () {
-    //   element.classList.remove('success');
-    //   // element.classList.add("collapse");
-    // }, 2000)
   } else {
     element.classList.add('alert');
     element.classList.remove("collapse");

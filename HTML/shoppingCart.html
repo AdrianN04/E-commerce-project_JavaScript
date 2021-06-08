@@ -24,19 +24,45 @@
   />
   </head>
   <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fs-2">
-      <div class="container-fluid">
-        <div class="navbar-header" id="title">
-          <a class="navbar-brand ms-5" href="../index.html">Adrian's site</a>
+    <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark fs-1">
+      <div class="container-fluid d-flex justify-content-between">
+        <div class="navbar-header" #id="title">
+          <a class="navbar-brand" href="../index.html">Adrian's site</a>
         </div>
-        <div class="nav navbar-nav" id="navbarToggler">
-          <a class="btn nav-link me-5 fs-5" href="admin.html"
-            >Admin</a
-          >
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarToggler"
+          aria-controls="navbarToggler"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarToggler">
+          <ul class="nav navbar-nav">
+            <li class="nav-item ">
+              <a
+                class="btn nav-link ms-5"
+                href="shoppingCart.html"
+                ><i class="fas fa-cart-arrow-down"></i></a
+              >
+            </li>
+            <li class="nav-item">
+              <a  href="admin.html"
+                class="btn nav-link ms-5 "            
+              >
+                Admin
+              </a>
+            </li>
+          </ul>
         </div>
       </div>
     </nav>
-    <main class="container-fluid mt-5">
+
+
+    <main class="container-fluid">
 
      
       <!-- Container of the modal button -->

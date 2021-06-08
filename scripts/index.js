@@ -20,7 +20,7 @@ function addProductsToDom(product) {
   let container = document.createElement('div');
   container.setAttribute("id", product.id);
   container.setAttribute("class", "text-center mt-2 col col-lg-3 col-md-4 col-sm-6");
-  container.innerHTML = `<img class=" img-fluid mh-50" src="${product.imageUrl}">
+  container.innerHTML = `<img class=" img-fluid h-100" src="${product.imageUrl}">
   <h2>${product.name}</h2>
   <p><i class="fas fa-dollar-sign"></i> ${product.price}</p> `;
   let detailsButton = document.createElement("button");
