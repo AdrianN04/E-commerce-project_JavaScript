@@ -6,6 +6,7 @@ let idRecieved = urlParam.get('id');
 
 // HTML variables
 const detailsContainer = document.getElementById('detailsContainer');
+let productInput = document.querySelector("input");
 // cartButtonContainer = document.getElementById("cartButtonContainer");
 
 //fetch
@@ -56,43 +57,54 @@ function displayProductDetails(product) {
 
   document.getElementById("cartButtonContainer").addEventListener("click", (e) => {
     e.preventDefault();
-    let input = checkInput(product);
-    console.log(input)
-    // setProductsToLocalStorage(product);
+      let input = checkInput(product);
+      console.log(input)
+      // setProductsToLocalStorage(product);
   });
 }
 
 
 function checkInput(product) {
-
+  let alert =  document.getElementById("alert");
   let message = document.getElementById("message");
-  let success = document.getElementById("success");
-  let valueFromInput = parseInt(document.querySelector("input").value);
-  if(valueFromInput < 1 && valueFromInput == NaN) {
-    message.classList.add("invalid");
-    message.innerText ="Please select a value over zero";
-    success.classList.add("collapse");
-    setTimeout(() => {
-      message.innerText = "";
-    }, 1000);
-
-  } 
-  else if(valueFromInput > parseInt(product.quantity)) {
-    message.classList.add("invalid");
-    message.innerText = "Over stock limit";
-    success.classList.add("collapse");
-    setTimeout(() => {
-      message.innerText = "";
-    }, 1000);
-  } 
-  else {
-    success.innerHTML = ` ${valueFromInput} x ${product.name} added to your shopping cart &#128513;`;
-    success.classList.remove("collapse");
-    // setTimeout(() => {
-    //   document.getElementById("success").classList.add("hide");
-    // }, 1000);
-    return valueFromInput;
-
+  if(productInput.value === ""){
+    showAction(message, `Please add the number of products &#128513;`, false);
+  }else {
+    let valueFromInput = parseInt(productInput.value);
+    if(valueFromInput < 1) {
+      showAction(alert, "Please insert a valid number!", false);
+      message.classList.add("collapse");
+    } 
+    else if(valueFromInput > parseInt(product.quantity)) {
+      showAction(alert, "Over stock limit!", false);
+      message.classList.add("collapse");
+    } 
+    else {
+      showAction(message, `${valueFromInput} x ${product.name} added to your shopping cart &#128513;`, true);
+      return valueFromInput;
+    };
   };
-  document.querySelector("input").value = "";
 };
+
+
+function showAction(element, text, value) {
+  if (value === true) {
+    // element.classList.add('success');
+    element.classList.remove("collapse");
+    element.innerHTML = text;
+    productInput.value = '';
+    // setTimeout(function () {
+    //   element.classList.remove('success');
+    //   // element.classList.add("collapse");
+    // }, 2000)
+  } else {
+    element.classList.add('alert');
+    element.classList.remove("collapse");
+    element.innerHTML = text;
+    productInput.value = '';
+    setTimeout(function () {
+      element.classList.remove('alert');
+      element.classList.add("collapse");
+    }, 2000)
+  }
+}

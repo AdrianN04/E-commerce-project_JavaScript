@@ -15,17 +15,18 @@ img {
   padding: 3rem;
   border-radius: 10%;
 }
-.invalid {
-  margin-top: 0.5rem;
+
+
+.alert{
   color: red;
-  font-size: 0.8rem;
-  font-family: 'Courier New', Courier, monospace;
+  display: block;
 }
 
-.hide {
-  display: none;
-  /* visibility: hidden; */
+.success{
+  /* color:rgb(32, 184, 32); */
+  display: block;
 }
+
 
 @media screen and (max-width: 440px) {
   #detailsContainer {
