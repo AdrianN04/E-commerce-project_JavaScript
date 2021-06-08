@@ -19,10 +19,10 @@ function addProductsToDom(product) {
   console.log(product);
   let container = document.createElement('div');
   container.setAttribute("id", product.id);
-  container.setAttribute("class", "text-center mt-2 col col-lg-3 col-md-4 col-sm-6");
+  container.setAttribute("class", "text-center mt-3 col-lg-3 col-md-4 col-sm-6");
   container.innerHTML = `<img class=" img-fluid h-100" src="${product.imageUrl}">
-  <h2>${product.name}</h2>
-  <p><i class="fas fa-dollar-sign"></i> ${product.price}</p> `;
+  <h2 class="fs-3">${product.name}</h2>
+  <p class="fs-3"><i class="fas fa-dollar-sign"></i> ${product.price}</p> `;
   let detailsButton = document.createElement("button");
   detailsButton.innerText = "Details";
   detailsButton.setAttribute("class", "btn bg-success");

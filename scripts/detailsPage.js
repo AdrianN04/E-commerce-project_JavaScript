@@ -34,92 +34,52 @@ function displayProductDetails(product) {
   document.getElementById("productDescription").innerText = product.description;
   document.getElementById("productPrice").innerHTML =`<i class="fas fa-dollar-sign"></i>  ${product.price}`;
   document.getElementById("productQuantity").innerText ="Products in stoc: " + product.quantity;
-  
-  //This is a backup for HTML
-  /*
-  document.getElementById("productDetails").innerHTML = `<h2 id="productName" class="container-fluid text-center">
-  ${product.name}
-  </h2>
-  <p id="productDescription" class="container-fluid text-center">
-    ${product.description}
-  </p>
-  <p id="productPrice" class="container-fluid text-center mb-4 border-bottom">
-    $${product.price}
-  </p>
-  <p id="productQuantity" class="container-fluid text-center">
-  Available products in stoc: ${product.quantity}</p>`;
-*/
-  // let goToCartButton = document.createElement("button");
-  // goToCartButton.setAttribute("class", "btn btn-primary");
-  // goToCartButton.innerText = "Add to Cart"
-  // document.getElementById("cartButtonContainer").appendChild(goToCartButton);
 
   document.getElementById("cartButtonContainer").addEventListener("click", (e) => {
     e.preventDefault();
       let input = checkInput(product);
       if(input !== undefined) {
         console.log(input)
-        // setProductsToLocalStorage(product);
+        setProductsToLocalStorage(product.id, input);
       }
-      
   });
+}
+
+function setProductsToLocalStorage(id, qty) {
+  localStorage.setItem(id, qty);
 }
 
 function checkInput(product) {
   let alert =  document.getElementById("alert");
   let message = document.getElementById("message");
-  // let valueFromInput = productInput.value;
-  // switch(valueFromInput) {
-  //   case valueFromInput = "":
-  //     showAction(message, `Please add the number of products &#128513;`, false);
-  //     break;
-  //   case parseInt(valueFromInput) < 1:
-  //     showAction(alert, "Please insert a valid number!", false);
-  //     message.classList.add("collapse");
-  //     break;
-  //   case parseInt(valueFromInput) > parseInt(product.quantity):
-  //     showAction(alert, "Over stock limit!", false);
-  //       message.classList.add("collapse");
-  //       break;
-  //   default:
-  //     showAction(message, `${productInput.value} x ${product.name} added to your shopping cart &#128513;`, true);
-  //   return productInput.value;
-  //       break;
-  // }
-
-  if(productInput.value === ""){
-    showAction(message, `Please add the number of products &#128513;`, false);
-  }else {
+ 
     let valueFromInput = parseInt(productInput.value);
-    if(valueFromInput < 1) {
-      showAction(alert, "Please insert a valid number!", false);
-      message.classList.add("collapse");
+    if(valueFromInput < 1 || productInput.value === "") {
+      showAction(alert, "Please insert a number!", false);
+      message.classList.remove("hidden");
     } 
     else if(valueFromInput > parseInt(product.quantity)) {
       showAction(alert, "Over stock limit!", false);
-      message.classList.add("collapse");
+      message.classList.remove("hidden");
     } 
     else {
       showAction(message, `${valueFromInput} x ${product.name} added to your shopping cart &#128513;`, true);
       return valueFromInput;
     };
-  };
 };
 
 
 function showAction(element, text, value) {
   if (value === true) {
-    element.classList.remove("collapse");
+    element.classList.remove("hidden");
     element.innerHTML = text;
     productInput.value = '';
   } else {
-    element.classList.add('alert');
-    element.classList.remove("collapse");
+    element.classList.remove("hidden");
     element.innerHTML = text;
     productInput.value = '';
     setTimeout(function () {
-      element.classList.remove('alert');
-      element.classList.add("collapse");
+      element.classList.add("hidden");
     }, 2000)
   }
 }
