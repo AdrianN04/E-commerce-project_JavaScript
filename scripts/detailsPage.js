@@ -56,16 +56,17 @@ function checkInput(product) {
     let valueFromInput = parseInt(productInput.value);
     if(valueFromInput < 1 || productInput.value === "") {
       showAction(alert, "Please insert a number!", false);
-      message.classList.remove("hidden");
+      message.classList.add("hidden");
     } 
     else if(valueFromInput > parseInt(product.quantity)) {
       showAction(alert, "Over stock limit!", false);
-      message.classList.remove("hidden");
+      message.classList.add("hidden");
     } 
     else {
       showAction(message, `${valueFromInput} x ${product.name} added to your shopping cart &#128513;`, true);
       return valueFromInput;
     };
+    
 };
 
 
