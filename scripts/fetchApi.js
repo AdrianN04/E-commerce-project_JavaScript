@@ -46,3 +46,5 @@
    };
 
  };
+
+ let DEFAULT_IMG = "https://nayemdevs.com/wp-content/uploads/2020/03/default-product-image.png";

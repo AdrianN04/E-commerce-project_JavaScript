@@ -56,7 +56,7 @@ function addProductsToCart(product) {
 
   //Table td for image
   let tableImg = document.createElement("td");
-  tableImg.innerHTML = `<img id="img-${product.id}" class="img-fluid" src="${product.imageUrl}">`;
+  tableImg.innerHTML = `<img id="img-${product.id}" class="img-fluid" src="${DEFAULT_IMG}">`;
   tableImg.setAttribute("class", "text-center");
   tableRow.appendChild(tableImg);
 
@@ -80,7 +80,7 @@ function addProductsToCart(product) {
   //Table td for quantity from localStorage
   let tableProductQuantity = document.createElement("td");
   let cartQty = localStorage.getItem(product.id);
-  tableProductQuantity.innerText = cartQty;
+  tableProductQuantity.innerHTML =`<button class="btn"><i class="fas fa-minus-circle"></i></button> <span>${cartQty}</span> <button class="btn"><i class="fas fa-plus-circle"></i></button>` ;
   tableProductQuantity.setAttribute("class", "text-center");
   tableProductQuantity.setAttribute("id", "quantity-" + product.id);
   tableRow.appendChild(tableProductQuantity);
@@ -106,6 +106,19 @@ function addProductsToCart(product) {
   });
 
   tableBody.appendChild(tableRow);
+
+  fetch(product.imageUrl)
+  .then(response => {
+      if(response.ok) {
+        document.getElementById("img-"+product.id).setAttribute('src', product.imageUrl);
+      }else {
+        throw new Error("Img error");
+      }
+  })
+  .catch(error => {
+    console.log(error, "Url not found");
+  });
+
 }
 
 function createPriceTd(product) {
@@ -168,7 +181,7 @@ function removeItemFromCart(id) {
       cartList.splice(i, 1);
       let node = document.getElementById(id);
       node.parentNode.removeChild(node);
-    }
-  }
-}
+    };
+  };
+};
 

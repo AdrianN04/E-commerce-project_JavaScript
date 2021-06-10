@@ -63,7 +63,7 @@ function addProductToTable(product) {
   tableRow.appendChild(tableIndex);
 
   let tableImg = document.createElement("td");
-  tableImg.innerHTML = `<img id="img-${product.id}" class="img-fluid" src="${product.imageUrl}">`;
+  tableImg.innerHTML = `<img id="img-${product.id}" class="img-fluid" src="${DEFAULT_IMG}">`;
   tableImg.setAttribute("class", "text-center");
   tableRow.appendChild(tableImg);
 
@@ -131,6 +131,19 @@ function addProductToTable(product) {
   buttonsContainer.appendChild(deleteBtn);
 
   tableBody.appendChild(tableRow);
+
+    fetch(product.imageUrl)
+    .then(response => {
+        if(response.ok) {
+          document.getElementById("img-"+product.id).setAttribute('src', product.imageUrl);
+        }else {
+          throw new Error("Img error");
+        }
+    })
+    .catch(error => {
+      console.log(error, "Url not found");
+    });
+  
 
 };
 

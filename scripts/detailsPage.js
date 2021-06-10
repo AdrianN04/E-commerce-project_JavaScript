@@ -2,6 +2,7 @@
 const queryString = window.location.search;
 let urlParam = new URLSearchParams(queryString);
 let idRecieved = urlParam.get('id');
+let fetchProductApi = new FetchApi();
 // console.log(idRecieved);
 
 // HTML variables
@@ -10,7 +11,7 @@ let productInput = document.querySelector("input");
 let alert = document.getElementById("alert");
 let message = document.getElementById("message");
 //fetch
-let fetchProductApi = new FetchApi();
+
 
 
 //Event Listener
@@ -28,9 +29,7 @@ function displayProductDetails(product) {
 
   product.id = idRecieved;
   console.log(product);
-  document.getElementById("imageContainer").innerHTML = `<img
-  class="img-fluid"
-  src="${product.imageUrl}"/>`;
+  document.getElementById("imageContainer").innerHTML = `<img id="img-${product.id}" class="img-fluid" src="${DEFAULT_IMG}">`;
   document.getElementById("productName").innerText = product.name;
   document.getElementById("productDescription").innerText = product.description;
   document.getElementById("productPrice").innerHTML = `<i class="fas fa-dollar-sign"></i>  ${product.price}`;
@@ -44,6 +43,19 @@ function displayProductDetails(product) {
       setProductsToLocalStorage(product.id, input, product);
     }
   });
+
+  fetch(product.imageUrl)
+    .then(response => {
+        if(response.ok) {
+          document.getElementById("img-"+product.id).setAttribute('src', product.imageUrl);
+        }else {
+          throw new Error("Img error");
+        }
+    })
+    .catch(error => {
+      console.log(error, "Url not found");
+    });
+  
 }
 
 function setProductsToLocalStorage(id, qty, product) {
