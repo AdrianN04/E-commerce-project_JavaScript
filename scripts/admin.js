@@ -45,7 +45,6 @@ function loadAllProducts() {
 };
 
 
-
 function addProductToTable(product) {
   // console.log(product);
 
@@ -133,7 +132,7 @@ function addProductToTable(product) {
 
   tableBody.appendChild(tableRow);
 
-}
+};
 
 function addAndSaveProducts() {
   let validation = validateForm();
@@ -145,9 +144,12 @@ function addAndSaveProducts() {
         productsList.push(addedProduct);
         resetForm();
         addProductToTable(addedProduct);
-      });
-  }
-}
+      })
+      .then(()=> {
+        loadAllProducts();
+      })
+  };
+};
 
 
 //Function to check if the inputs are filled

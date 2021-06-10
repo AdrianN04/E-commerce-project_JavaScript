@@ -22,10 +22,11 @@ function getAndDisplayCartProducts() {
     let keyId = keyList[i];
     if (keyId !== undefined) {
       cartFetchApi.getProduct(keyId)
-      .then(response => {
-        response.id = keyId;
-        addProductsToCart(response)
-      });
+        .then(response => {
+          response.id = keyId;
+          cartList.push(response);
+          addProductsToCart(response);
+        });
     };
   };
 };
@@ -55,7 +56,7 @@ function addProductsToCart(product) {
   let tableProductName = createNameTd(product);
   //button to go to details page
   let detailsButton = createDetailsButton(product);
-  
+
   tableProductName.appendChild(detailsButton);
   tableRow.appendChild(tableProductName);
   //EventListener to got to the details page
@@ -79,12 +80,21 @@ function addProductsToCart(product) {
   //Table td for subtotal price
   let tableProductSubTotal = document.createElement("td");
   let subTotalPrice = parseInt(product.price) * cartQty;
-  tableProductSubTotal.innerHTML ='<i class="fas fa-dollar-sign"></i> ' + subTotalPrice;
+  tableProductSubTotal.innerHTML = '<i class="fas fa-dollar-sign"></i> ' + subTotalPrice;
   tableProductSubTotal.setAttribute("class", "text-center");
   tableProductSubTotal.setAttribute("id", "subTotal-" + product.id);
   tableRow.appendChild(tableProductSubTotal);
 
-  createRemoveButton(tableRow);
+  let buttonsContainer = createRemoveButton(tableRow);
+  let removeBtn = document.createElement('button');
+  removeBtn.setAttribute('class', "btn btn-primary ms-3 bg-danger");
+  removeBtn.innerText = "Remove";
+  buttonsContainer.appendChild(removeBtn);
+
+  removeBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    removeItemFromCart(product.id);
+  });
 
   tableBody.appendChild(tableRow);
 }
@@ -94,8 +104,8 @@ function createPriceTd(product) {
   tableProductPrice.innerHTML = `<i class="fas fa-dollar-sign"></i> ${product.price}`;
   tableProductPrice.setAttribute("class", "text-center");
   tableProductPrice.setAttribute("id", "price-" + product.id);
-  return tableProductPrice
-}
+  return tableProductPrice;
+};
 
 function createNameTd(product) {
   let tableProductName = document.createElement("td");
@@ -103,7 +113,7 @@ function createNameTd(product) {
   tableProductName.setAttribute("class", "text-center");
   tableProductName.setAttribute("id", "name-" + product.id);
   return tableProductName;
-}
+};
 
 function createDetailsButton(product) {
   let detailsButton = document.createElement("button");
@@ -111,7 +121,7 @@ function createDetailsButton(product) {
   detailsButton.setAttribute("class", "btn text-info");
   detailsButton.setAttribute("id", "button-" + product.id);
   return detailsButton;
-}
+};
 
 function createRemoveButton(tableRow) {
   let buttonsColumn = document.createElement("td");
@@ -123,11 +133,9 @@ function createRemoveButton(tableRow) {
   buttonsContainer.setAttribute("aria-label", "Basic example");
   buttonsColumn.appendChild(buttonsContainer);
 
-  let removeBtn = document.createElement('button');
-  removeBtn.setAttribute('class', "btn btn-primary ms-3 bg-danger");
-  removeBtn.innerText = "Remove";
-  buttonsContainer.appendChild(removeBtn);
-}
+  return buttonsColumn;
+  
+};
 
 
 function createTableIndex(indexNumber) {
@@ -137,9 +145,20 @@ function createTableIndex(indexNumber) {
   tableIndex.innerText = indexNumber;
 
   return tableIndex;
-}
+};
 
 
 function goToDetailsPage(id) {
-  window.location.href= "detailsPage.html?id=" + id;
+  window.location.href = "detailsPage.html?id=" + id;
+}
+
+function removeItemFromCart(id) {
+  for(let i=0; i< cartList.length; i++){
+    if(cartList[i].id === id) {
+      localStorage.removeItem(id);
+      cartList.splice(i, 1);
+      let node = document.getElementById(id);
+      node.parentNode.removeChild(node);
+    }
+  }
 }
