@@ -32,7 +32,6 @@ function getAndDisplayCartProducts() {
           let sumOfPrices = listOfPrices.reduce(function(a, b){
             return a + b;
           }, 0);
-          
           document.getElementById("totalPrice").innerHTML =`Total:  <i class="fas fa-dollar-sign"></i> ${sumOfPrices}`;
         });
     };
@@ -79,11 +78,40 @@ function addProductsToCart(product) {
 
   //Table td for quantity from localStorage
   let tableProductQuantity = document.createElement("td");
-  let cartQty = localStorage.getItem(product.id);
-  tableProductQuantity.innerHTML =`<button class="btn"><i class="fas fa-minus-circle"></i></button> <span>${cartQty}</span> <button class="btn"><i class="fas fa-plus-circle"></i></button>` ;
   tableProductQuantity.setAttribute("class", "text-center");
   tableProductQuantity.setAttribute("id", "quantity-" + product.id);
+  //Button to reduce the quantity from shopping cart
+  let decreaseBtn = document.createElement("button");
+  decreaseBtn.setAttribute("class", "btn col-lg-4 col-sm-12");
+  decreaseBtn.innerHTML = `<i class="fas fa-minus-circle"></i>`;
+  //Quantity added to the cart
+  let cartQty = localStorage.getItem(product.id);
+  let productQty = document.createElement("span");
+  productQty.setAttribute("class", "col-lg-4 col-sm-12 ms-2 me-2");
+  productQty.setAttribute("id", "qty-"+product.id);
+  productQty.innerText = cartQty;
+  //Button to increase the quantity from shopping cart
+  let increaseBtn = document.createElement("button");
+  increaseBtn.setAttribute("class", "btn col-lg-4 col-sm-12");
+  increaseBtn.innerHTML = `<i class="fas fa-plus-circle"></i>`;
+
+  // tableProductQuantity.innerHTML =`<button class="btn container-fluid" onclick="decreaseQty(${product})"><i class="fas fa-minus-circle"></i></button> <span class="container-fluid">${cartQty}</span> <button class="btn container-fluid"><i class="fas fa-plus-circle"></i></button>`;
+
+  tableProductQuantity.appendChild(decreaseBtn);
+  tableProductQuantity.appendChild(productQty);
+  tableProductQuantity.appendChild(increaseBtn);
   tableRow.appendChild(tableProductQuantity);
+
+  //Event Listener to decrease the quantity of the cart
+  decreaseBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    decreaseQty(product);
+  });
+  //Event Listener to decrease the quantity of the cart
+  increaseBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    increaseQty(product);
+  });
 
   //Table td for subtotal price
   let tableProductSubTotal = document.createElement("td");
@@ -185,3 +213,29 @@ function removeItemFromCart(id) {
   };
 };
 
+function decreaseQty(product) {
+  let storedQuantity = localStorage.getItem(product.id);
+  let decreasedProductQty = parseInt(storedQuantity) - 1;
+  if (decreasedProductQty >= 1) {
+    localStorage.setItem(product.id, decreasedProductQty);
+    document.getElementById("qty-"+ product.id).innerText = decreasedProductQty;
+      // showAction(message, `${newQty} x ${product.name} added to your shopping cart &#128513;`, true);
+    } else {
+      // showAction(message, "The quantity you want is bigger than the actual stock! please check your cart!", true);
+      console.log("You cannot go under 1");
+    };
+};
+
+function increaseQty(product) {
+  let storedQuantity = localStorage.getItem(product.id);
+  let increasedProductQty = parseInt(storedQuantity) + 1;
+  console.log(increasedProductQty)
+  if (increasedProductQty <= product.quantity) {
+    localStorage.setItem(product.id, increasedProductQty);
+    document.getElementById("qty-"+ product.id).innerText = increasedProductQty;
+    // showAction(message, `${newQty} x ${product.name} added to your shopping cart &#128513;`, true);
+  } else {
+    // showAction(message, "The quantity you want is bigger than the actual stock! please check your cart!", true);
+    console.log("You cannot exceed stock quantity");
+  };
+};
