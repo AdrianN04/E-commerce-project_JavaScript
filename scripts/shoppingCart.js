@@ -8,6 +8,7 @@ let cartFetchApi = new FetchApi();
 let cartList = [];
 let keyList = [];
 let indexNumber = 0;
+let listOfPrices = [];
 
 function retrieveKeysFromStorage() {
   for (let i = 0; i < localStorage.length; i++) {
@@ -26,6 +27,13 @@ function getAndDisplayCartProducts() {
           response.id = keyId;
           cartList.push(response);
           addProductsToCart(response);
+        })
+        .then(() => {
+          let sumOfPrices = listOfPrices.reduce(function(a, b){
+            return a + b;
+          }, 0);
+          
+          document.getElementById("totalPrice").innerHTML =`Total:  <i class="fas fa-dollar-sign"></i> ${sumOfPrices}`;
         });
     };
   };
@@ -84,6 +92,7 @@ function addProductsToCart(product) {
   tableProductSubTotal.setAttribute("class", "text-center");
   tableProductSubTotal.setAttribute("id", "subTotal-" + product.id);
   tableRow.appendChild(tableProductSubTotal);
+  listOfPrices.push(subTotalPrice);
 
   let buttonsContainer = createRemoveButton(tableRow);
   let removeBtn = document.createElement('button');
@@ -162,3 +171,4 @@ function removeItemFromCart(id) {
     }
   }
 }
+
