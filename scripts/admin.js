@@ -85,7 +85,7 @@ function addProductToTable(product) {
   });
 
   let tableProductPrice = document.createElement("td");
-  tableProductPrice.innerText = product.price;
+  tableProductPrice.innerHTML = `<i class="fas fa-dollar-sign"></i> ${product.price}`;
   tableProductPrice.setAttribute("class", "text-center");
   tableProductPrice.setAttribute("id", "price-" + product.id);
   tableRow.appendChild(tableProductPrice);
