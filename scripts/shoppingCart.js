@@ -269,30 +269,43 @@ function increaseQty(product) {
 document.getElementById("buyBtn").addEventListener("click", buyProductsFromCart);
 
 function buyProductsFromCart() {
-
-  cartFetchApi.getAllProducts()
+  retrieveKeysFromStorage();
+  if(cartList.length>0){
+    cartFetchApi.getAllProducts()
     .then(products => {
       productsFromServer = products;
+      checkActualQty();
     })
     .then(() => {
-      console.log(productsFromServer);
-      if(cartList.length>0){
-        checkActualQty();
-      } else {
-        console.log("add products to your cart first")
-      }
-      
-    })
-  
-  
-}
+    let sumOfPrices = listOfPrices.map(items => items.price).reduce((prev, curr) => prev + curr, 0);
+        document.getElementById("cartTitle").innerHTML = `You bought ${listOfPrices.length} items for <i class="fas fa-dollar-sign"></i>${sumOfPrices}`;
+        keyList = [];
+        cartList = [];
+        listOfPrices = [];
+        localStorage.clear();
+        resetShoppingCart();
+    });
+  }else {
+      console.log("add products to your cart first");
+     document.getElementById("buyBtn").setAttribute("data-bs-content", "Left popover");
+  };
+};
 
-// function checkActualQty() {
-//   for(let i=0; i< productsFromServer.length; i++) {
-//     for(let j=0; j< cartList.length; j++) {
-//       if(cartList[j].id === productsFromServer[i].id) {
-          
-//       }
-//     }
-//   }
-// }
+function checkActualQty() {
+  for(let i=0; i< productsFromServer.length; i++) {
+    for(let j=0; j< cartList.length; j++) {
+      if(cartList[j].id === productsFromServer[i].id) {
+        let modifiedQty = parseInt(productsFromServer[i].quantity) - parseInt(localStorage.getItem(productsFromServer[i].id));
+        let updatedProduct = productsFromServer[i];
+        updatedProduct.quantity = modifiedQty.toString();
+        cartFetchApi.updateProduct(updatedProduct);
+        console.log(updatedProduct);
+      }
+    }
+  }
+}
+  
+function resetShoppingCart() {
+  document.getElementById("cartTableBody").innerHTML = "";
+  document.getElementById("totalPrice").innerHTML = `Total:  <i class="fas fa-dollar-sign"></i>0</span>`;
+}

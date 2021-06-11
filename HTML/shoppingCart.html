@@ -67,7 +67,7 @@
      
       <!-- Container of the modal button -->
       <div class="row d-flex align-items-center justify-content-center">
-        <h3 class="col-lg-3 col-md-4 col-sm-12 text-center">Products in your cart</h3>
+        <h3 id="cartTitle" class="col-lg-3 col-md-4 col-sm-12 text-center">Your cart</h3>
       </div>
 
       <!-- container for the products -->
@@ -87,7 +87,7 @@
             </thead>
             <tbody id="cartTableBody" class="container-fluid"></tbody>
           </table>
-          <div class="float-end"><span id="totalPrice" class="text-center me-4">Total:  <i class="fas fa-dollar-sign"></i>0</span><button id="buyBtn" class="text-center btn btn-success me-5">buy</button></div>
+          <div class="float-end"><span id="totalPrice" class="text-center me-4">Total:  <i class="fas fa-dollar-sign"></i>0</span><button id="buyBtn" class="text-center btn btn-success me-5" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="bottom">buy</button></div>
         </div>
       </div>
     </main>
