@@ -35,20 +35,23 @@ function addProductsToDom(product) {
 
   rowContainer.appendChild(container);
 
-  setTimeout(() => {
-    fetch(product.imageUrl)
-    .then(response => {
-        if(response.ok) {
-          document.getElementById("img-"+product.id).setAttribute('src', product.imageUrl);
-        }else {
-          throw new Error("Img error");
-        }
-    })
-    .catch(error => {
-      console.log(error, "Url not found");
-    });
-  }, 1000);
- 
+  if(product.quantity === "0") {
+    document.getElementById("img-"+product.id).setAttribute('src', OUT_OF_STOCK_IMG);
+  }else {
+    setTimeout(() => {
+      fetch(product.imageUrl)
+      .then(response => {
+          if(response.ok) {
+            document.getElementById("img-"+product.id).setAttribute('src', product.imageUrl);
+          }else {
+            throw new Error("Img error");
+          }
+      })
+      .catch(error => {
+        console.log(error, "Url not found");
+      });
+    }, 1000);
+  };
 };
 
 

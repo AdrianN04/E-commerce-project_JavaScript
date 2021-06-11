@@ -33,8 +33,13 @@ function displayProductDetails(product) {
   document.getElementById("productName").innerText = product.name;
   document.getElementById("productDescription").innerText = product.description;
   document.getElementById("productPrice").innerHTML = `<i class="fas fa-dollar-sign"></i>  ${product.price}`;
-  document.getElementById("productQuantity").innerText = "Products in stoc: " + product.quantity;
-
+  if(product.quantity === "0") {
+    document.getElementById("productQuantity").innerText = "Out of stock";
+    document.getElementById("productQuantity").classList.add("text-danger");
+  }else {
+    document.getElementById("productQuantity").innerText = "Products in stoc: " + product.quantity;
+  }
+ 
   document.getElementById("cartButtonContainer").addEventListener("click", (e) => {
     e.preventDefault();
     let input = checkInput(product);
@@ -44,7 +49,8 @@ function displayProductDetails(product) {
     }
   });
 
-  fetch(product.imageUrl)
+  setTimeout(() => {
+    fetch(product.imageUrl)
     .then(response => {
         if(response.ok) {
           document.getElementById("img-"+product.id).setAttribute('src', product.imageUrl);
@@ -55,8 +61,8 @@ function displayProductDetails(product) {
     .catch(error => {
       console.log(error, "Url not found");
     });
-  
-}
+  }, 500);
+};
 
 function setProductsToLocalStorage(id, qty, product) {
   let storedQuantity = localStorage.getItem(id);

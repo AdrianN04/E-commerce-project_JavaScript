@@ -278,7 +278,7 @@ function buyProductsFromCart() {
     })
     .then(() => {
     let sumOfPrices = listOfPrices.map(items => items.price).reduce((prev, curr) => prev + curr, 0);
-        document.getElementById("cartTitle").innerHTML = `You bought ${listOfPrices.length} items for <i class="fas fa-dollar-sign"></i>${sumOfPrices}`;
+        document.getElementById("cartTitle").innerHTML = `You bought ${listOfPrices.length} items for <i class="fas fa-dollar-sign fs-2"></i> ${sumOfPrices}`;
         keyList = [];
         cartList = [];
         listOfPrices = [];

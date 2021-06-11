@@ -133,7 +133,10 @@ function addProductToTable(product) {
   buttonsContainer.appendChild(deleteBtn);
 
   tableBody.appendChild(tableRow);
-
+  
+  if(product.quantity === "0") {
+    document.getElementById("img-"+product.id).setAttribute('src', OUT_OF_STOCK_IMG);
+  }
 
 };
 
