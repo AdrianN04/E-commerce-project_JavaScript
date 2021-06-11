@@ -22,7 +22,7 @@ addProductsBtn.addEventListener("click", (e) => {
   addAndSaveProducts();
 });
 
-showFormButton.addEventListener("click", showEmptyForm);
+showFormButton.addEventListener("click", resetForm);
 
 resetFormBtn.addEventListener("click", emptyFormInputs);
 
@@ -32,25 +32,27 @@ function emptyFormInputs() {
   addProductsBtn.classList.remove("collapse");
 }
 
-function showEmptyForm() {
-  resetForm();
-}
-
 function loadAllProducts() {
+  indexNumber = 0;
+  document.getElementById("tableBody").innerHTML = "";
   fetchApi.getAllProducts()
     .then(products => {
       productsList = products;
       productsList.forEach(product => addProductToTable(product));
-    });
+      // renderTable();
+    })
 };
 
+function renderTable() {
+  indexNumber = 0;
+  document.getElementById("tableBody").innerHTML = "";
+  for(let i=0; i<productsList.length; i++){
+    addProductToTable(productsList[i]);
+  }
+}
 
 function addProductToTable(product) {
-  // console.log(product);
-
-  indexNumber++;
   let tableBody = document.getElementById("tableBody");
-  
 
   let tableRow = document.createElement("tr");
   tableRow.setAttribute("id", product.id);
@@ -59,11 +61,11 @@ function addProductToTable(product) {
   let tableIndex = document.createElement("th");
   tableIndex.setAttribute("scope", "row");
   tableIndex.setAttribute("class", "text-center");
-  tableIndex.innerText = indexNumber;
+  tableIndex.innerText = indexNumber++;
   tableRow.appendChild(tableIndex);
 
   let tableImg = document.createElement("td");
-  tableImg.innerHTML = `<img id="img-${product.id}" class="img-fluid" src="${DEFAULT_IMG}">`;
+  tableImg.innerHTML = `<img id="img-${product.id}" class="img-fluid" src="${product.imageUrl}">`;
   tableImg.setAttribute("class", "text-center");
   tableRow.appendChild(tableImg);
 
@@ -132,18 +134,6 @@ function addProductToTable(product) {
 
   tableBody.appendChild(tableRow);
 
-    fetch(product.imageUrl)
-    .then(response => {
-        if(response.ok) {
-          document.getElementById("img-"+product.id).setAttribute('src', product.imageUrl);
-        }else {
-          throw new Error("Img error");
-        }
-    })
-    .catch(error => {
-      console.log(error, "Url not found");
-    });
-  
 
 };
 
@@ -160,7 +150,7 @@ function addAndSaveProducts() {
       })
       .then(()=> {
         loadAllProducts();
-      })
+      });
   };
 };
 
@@ -216,7 +206,6 @@ function editProductById(productId) {
   for (let i = 0; i < productsList.length; i++) {
     if (productsList[i].id === productId) {
       displaySelectedProductToForm(productsList[i]);
-
       updateProductBtn.addEventListener("click", (e) => {
         e.preventDefault();
         saveUpdatedProduct(productsList[i]);
@@ -280,6 +269,7 @@ function removeProductById(id) {
       productsList.splice(i, 1);
       let node = document.getElementById(id);
       node.parentNode.removeChild(node);
+      renderTable();
     };
   };
  

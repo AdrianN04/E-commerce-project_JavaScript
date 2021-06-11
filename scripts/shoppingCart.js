@@ -7,8 +7,9 @@ window.addEventListener("load", getAndDisplayCartProducts);
 let cartFetchApi = new FetchApi();
 let cartList = [];
 let keyList = [];
-let indexNumber = 0;
+let indexNumber;
 let listOfPrices = [];
+let productsFromServer = [];
 
 function retrieveKeysFromStorage() {
   for (let i = 0; i < localStorage.length; i++) {
@@ -16,7 +17,6 @@ function retrieveKeysFromStorage() {
     keyList.push(keyId)
   }
 }
-
 
 function getAndDisplayCartProducts() {
   for (let i = 0; i < keyList.length; i++) {
@@ -27,7 +27,6 @@ function getAndDisplayCartProducts() {
           response.id = keyId;
           cartList.push(response);
           addProductsToCart(response);
-          return response.id;
         })
         .then(() => {
           displayTotalPrice();
@@ -36,6 +35,7 @@ function getAndDisplayCartProducts() {
   };
 };
 
+
 function displayTotalPrice() {
   let sumOfPrices = listOfPrices.map(items => items.price).reduce((prev, curr) => prev + curr, 0);
   document.getElementById("totalPrice").innerHTML =`Total:  <i class="fas fa-dollar-sign"></i> ${sumOfPrices}`;
@@ -43,7 +43,7 @@ function displayTotalPrice() {
 
 function addProductsToCart(product) {
   // console.log(product)
-  indexNumber++;
+
   let tableBody = document.getElementById("cartTableBody");
 
   //Table row
@@ -52,7 +52,7 @@ function addProductsToCart(product) {
   tableRow.setAttribute("class", "mt-3 align-middle container-fluid");
 
   //Table td for index number
-  let tableIndex = createTableIndex(indexNumber);
+  let tableIndex = createTableIndex(indexNumber++);
   tableRow.appendChild(tableIndex);
 
   //Table td for image
@@ -194,7 +194,6 @@ function createRemoveButton(tableRow) {
   buttonsColumn.appendChild(buttonsContainer);
 
   return buttonsColumn;
-  
 };
 
 
@@ -267,3 +266,33 @@ function increaseQty(product) {
   };
 };
 
+document.getElementById("buyBtn").addEventListener("click", buyProductsFromCart);
+
+function buyProductsFromCart() {
+
+  cartFetchApi.getAllProducts()
+    .then(products => {
+      productsFromServer = products;
+    })
+    .then(() => {
+      console.log(productsFromServer);
+      if(cartList.length>0){
+        checkActualQty();
+      } else {
+        console.log("add products to your cart first")
+      }
+      
+    })
+  
+  
+}
+
+// function checkActualQty() {
+//   for(let i=0; i< productsFromServer.length; i++) {
+//     for(let j=0; j< cartList.length; j++) {
+//       if(cartList[j].id === productsFromServer[i].id) {
+          
+//       }
+//     }
+//   }
+// }
