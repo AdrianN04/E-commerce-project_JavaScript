@@ -49,4 +49,4 @@
 
  let DEFAULT_IMG = "https://nayemdevs.com/wp-content/uploads/2020/03/default-product-image.png";
 
- let OUT_OF_STOCK_IMG = "https://www.pngkit.com/png/full/118-1182531_in-stock-png-temporarily-out-of-stock-sign.png";
+ let OUT_OF_STOCK_IMG = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTDeZxvkvtW7s7XC4fCBFRjPtodx9eAO0QSWA&usqp=CAU";
