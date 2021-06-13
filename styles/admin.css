@@ -9,6 +9,13 @@ img {
   max-height: 10vh; 
 }
 
+main div div {margin: 0;}
+
+main div div:hover {
+ transform: none;
+ box-shadow: none;
+}
+
 td {
   padding: 2rem;
   margin: 1rem;

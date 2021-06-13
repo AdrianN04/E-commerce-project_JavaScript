@@ -6,6 +6,7 @@ let productPriceInput = document.getElementById("productPriceInput");
 let productQuantityInput = document.getElementById("productQuantityInput");
 let productDescriptionInput = document.getElementById("productDescriptionInput");
 const resetFormBtn = document.getElementById("resetBtn");
+const closeFormBtn = document.getElementById("closeBtn");
 const showFormButton = document.getElementById("showFormButton");
 const updateProductBtn = document.getElementById("updateBtn");
 
@@ -30,7 +31,9 @@ function emptyFormInputs() {
   resetForm();
   updateProductBtn.classList.add("collapse");
   addProductsBtn.classList.remove("collapse");
-}
+  closeFormBtn.classList.remove("collapse");
+  resetFormBtn.classList.add("collapse");
+};
 
 function loadAllProducts() {
   indexNumber = 0;
@@ -136,7 +139,7 @@ function addProductToTable(product) {
   
   if(product.quantity === "0") {
     document.getElementById("img-"+product.id).setAttribute('src', OUT_OF_STOCK_IMG);
-  }
+  };
 
 };
 
@@ -226,7 +229,8 @@ function displaySelectedProductToForm(product) {
   productDescriptionInput.value = product.description;
   updateProductBtn.classList.remove("collapse");
   addProductsBtn.classList.add("collapse");
-
+  closeFormBtn.classList.add("collapse");
+  resetFormBtn.classList.remove("collapse");
 };
 
 
@@ -249,6 +253,8 @@ function updateProductInterface(product, updatedProductObj) {
 
   updateProductBtn.classList.add("collapse");
   addProductsBtn.classList.remove("collapse");
+  closeFormBtn.classList.remove("collapse");
+  resetFormBtn.classList.add("collapse");
   product.imageUrl = updatedProductObj.imageUrl;
   product.name = updatedProductObj.name;
   product.price = updatedProductObj.price;

@@ -78,13 +78,12 @@ function setProductsToLocalStorage(id, qty, product) {
 
   } else {
     localStorage.setItem(id, qty);
-  }
+  };
 
-}
+};
 
 function checkInput(product) {
  
-
   let valueFromInput = parseInt(productInput.value);
   if (valueFromInput < 1 || productInput.value === "") {
     showAction(alert, "Please insert a number!", false);
