@@ -16,17 +16,14 @@ function getAndDisplayProducts() {
         productsList.forEach(product => addProductsToDom(product));
       })
       .then(()=> {
-        setTimeout(() => {
-          document.querySelector(".loader").classList.add("hidden");
-          document.querySelector("main").classList.remove("hidden");
-        }, 2000);
+        fetchApi.afterLoad();
       });
   };
 function addProductsToDom(product) {
   // console.log(product);
   let container = document.createElement('div');
   container.setAttribute("id", product.id);
-  container.setAttribute("class", "text-center mt-3 col-lg-3 col-md-4 col-sm-6 p-2");
+  container.setAttribute("class", "text-center mt-3 col-lg-3 col-md-4 col-sm-6 vh-60");
   container.innerHTML = `<img id="img-${product.id}" class="img-fluid h-100" src="${DEFAULT_IMG}">
   <h2 class="fs-3">${product.name}</h2>
   <p class="fs-3"><i class="fas fa-dollar-sign"></i> ${product.price}</p> `;

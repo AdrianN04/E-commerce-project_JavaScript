@@ -68,15 +68,12 @@
     <main class="container-fluid hidden">
       <h2 id="message" class="hidden text-center mt-5"></h2>
       <div id="detailsContainer" class="row d-flex align-items-center justify-content-evenly">
+        <!-- Image container -->
         <div id="imageContainer" class="mt-5 text-center col-lg-4 col-md-6 col-sm-10">
-          <!-- <img
-            class="img-fluid"
-            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTczZIhCT5-ydQYyiknCC-g87S0TSBtqaP2AA&usqp=CAU"
-          /> -->
         </div>
 
+        <!-- Products container -->
         <div id="productDetails" class="mt-5 col-lg-4 col-md-6 col-sm-10">
-          
           <h2 id="productName" class="text-center">
             Product name
           </h2>
@@ -102,14 +99,16 @@
         </div> 
       </div>
     </main>
+    <!-- PAge footer -->
     <footer class="fixed-bottom text-muted bg-dark">
       <div class="container mt-2">
         <p class="float-end">
           <a href="#">Back to top</a>
         </p>
-     
+     <!-- Hide social buttons -->
       <button class="navbar-toggler fas fa-icons ms-5 mt-2" type="button" data-bs-toggle="collapse"      data-bs-target="#footerToggler" aria-controls="footerToggler" aria-expanded="false" aria-label="Toggle navigation">
       </button>
+      <!-- Div with social buttons -->
       <div class="collapse ms-5" id="footerToggler">
           
           <a href="#" class="fa fa-facebook"></a>
@@ -135,6 +134,7 @@
 
     <script src="https://kit.fontawesome.com/e36930e009.js" crossorigin="anonymous"></script>
 
+    <!-- Scripts for detail page -->
     <script src="../scripts/fetchApi.js"></script>
     <script src="../scripts/detailsPage.js"></script>
   </body>

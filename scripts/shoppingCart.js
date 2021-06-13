@@ -34,10 +34,7 @@ function getAndDisplayCartProducts() {
         })
     };
   };
-  setTimeout(() => {
-    document.querySelector(".loader").classList.add("hidden");
-    document.querySelector("main").classList.remove("hidden");
-  }, 2000);
+  cartFetchApi.afterLoad();
 };
 
 

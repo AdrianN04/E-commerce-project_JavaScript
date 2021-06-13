@@ -45,6 +45,13 @@
        .then(response => response.json());
    };
 
+   afterLoad = ()=> {
+    setTimeout(() => {
+      document.querySelector(".loader").classList.add("hidden");
+      document.querySelector("main").classList.remove("hidden");
+    }, 2000);
+   };
+
  };
 
  let DEFAULT_IMG = "https://nayemdevs.com/wp-content/uploads/2020/03/default-product-image.png";
