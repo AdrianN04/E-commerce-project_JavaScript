@@ -29,9 +29,8 @@ function getResourcesFromPage() {
 };
 
 function displayProductDetails(product) {
-
   product.id = idRecieved;
-  console.log(product);
+  // console.log(product);
   document.getElementById("imageContainer").innerHTML = `<img id="img-${product.id}" class="img-fluid" src="${DEFAULT_IMG}">`;
   document.getElementById("productName").innerText = product.name;
   document.getElementById("productDescription").innerText = product.description;
@@ -41,17 +40,20 @@ function displayProductDetails(product) {
     document.getElementById("productQuantity").classList.add("text-danger");
   }else {
     document.getElementById("productQuantity").innerText = "Products in stoc: " + product.quantity;
-  }
- 
-  document.getElementById("cartButtonContainer").addEventListener("click", (e) => {
-    e.preventDefault();
-    let input = checkInput(product);
-    if (input !== undefined) {
-      console.log(input)
-      setProductsToLocalStorage(product.id, input, product);
-    }
-  });
+  };
 
+  if(product.quantity === "0") {
+    document.getElementById("cartButtonContainer").disabled = true;
+  }else {
+    document.getElementById("cartButtonContainer").addEventListener("click", (e) => {
+      e.preventDefault();
+      let input = checkInput(product);
+      if (input !== undefined) {
+        setProductsToLocalStorage(product.id, input, product);
+      }
+    });
+  };
+ 
   setTimeout(() => {
     fetch(product.imageUrl)
     .then(response => {

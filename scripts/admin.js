@@ -248,7 +248,10 @@ function saveUpdatedProduct(product) {
       .then(() => {
         updateProductInterface(product, updatedProductObj);
         resetForm();
-      });
+      })
+      .then(()=> {
+        loadAllProducts();
+      })
   };
 }
 
