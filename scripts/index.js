@@ -18,7 +18,7 @@ function getAndDisplayProducts() {
       .then(()=> {
         setTimeout(() => {
           document.querySelector(".loader").classList.add("hidden");
-          rowContainer.classList.remove("hidden");
+          document.querySelector("main").classList.remove("hidden");
         }, 2000);
       });
   };

@@ -27,7 +27,7 @@ function getResourcesFromPage() {
       setTimeout(() => {
         document.querySelector(".loader").classList.add("hidden");
         document.querySelector("main").classList.remove("hidden");
-      }, 3000);
+      }, 2000);
     });
 };
 
