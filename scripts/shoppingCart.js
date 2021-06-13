@@ -27,24 +27,23 @@ function getAndDisplayCartProducts() {
           response.id = keyId;
           cartList.push(response);
           addProductsToCart(response);
-        })
-        .then(()=> {
-          setTimeout(() => {
-            document.querySelector(".loader").classList.add("hidden");
-            document.querySelector("main").classList.remove("hidden");
-          }, 3000);
+
         })
         .then(() => {
           displayTotalPrice();
-        });
+        })
     };
   };
+  setTimeout(() => {
+    document.querySelector(".loader").classList.add("hidden");
+    document.querySelector("main").classList.remove("hidden");
+  }, 2000);
 };
 
 
 function displayTotalPrice() {
   let sumOfPrices = listOfPrices.map(items => items.price).reduce((prev, curr) => prev + curr, 0);
-  document.getElementById("totalPrice").innerHTML =`Total:  <i class="fas fa-dollar-sign"></i> ${sumOfPrices}`;
+  document.getElementById("totalPrice").innerHTML = `Total:  <i class="fas fa-dollar-sign"></i> ${sumOfPrices}`;
 }
 
 function addProductsToCart(product) {
@@ -100,7 +99,7 @@ function addProductsToCart(product) {
   let cartQty = localStorage.getItem(product.id);
   let productQty = document.createElement("span");
   productQty.setAttribute("class", "col-lg-4 col-sm-12 ms-2 me-2");
-  productQty.setAttribute("id", "qty-"+product.id);
+  productQty.setAttribute("id", "qty-" + product.id);
   productQty.innerText = cartQty;
   //Button to increase the quantity from shopping cart
   let increaseBtn = document.createElement("button");
@@ -129,7 +128,7 @@ function addProductsToCart(product) {
   let subTotalPrice = parseInt(product.price) * cartQty;
   let subTotalPriceObject = {
     price: subTotalPrice,
-    id: product.id 
+    id: product.id
   };
   tableProductSubTotal.innerHTML = '<i class="fas fa-dollar-sign"></i> ' + subTotalPrice;
   tableProductSubTotal.setAttribute("class", "text-center");
@@ -151,16 +150,16 @@ function addProductsToCart(product) {
   tableBody.appendChild(tableRow);
 
   fetch(product.imageUrl)
-  .then(response => {
-      if(response.ok) {
-        document.getElementById("img-"+product.id).setAttribute('src', product.imageUrl);
-      }else {
+    .then(response => {
+      if (response.ok) {
+        document.getElementById("img-" + product.id).setAttribute('src', product.imageUrl);
+      } else {
         throw new Error("Img error");
       };
-  })
-  .catch(error => {
-    console.log(error, "Url not found");
-  });
+    })
+    .catch(error => {
+      console.log(error, "Url not found");
+    });
 };
 
 function createPriceTd(product) {
@@ -216,8 +215,8 @@ function goToDetailsPage(id) {
 };
 
 function removeItemFromCart(id) {
-  for(let i=0; i< cartList.length; i++){
-    if(cartList[i].id === id) {
+  for (let i = 0; i < cartList.length; i++) {
+    if (cartList[i].id === id) {
       localStorage.removeItem(id);
       cartList.splice(i, 1);
       listOfPrices.splice(i, 1);
@@ -232,39 +231,39 @@ function decreaseQty(product) {
   let storedQuantity = localStorage.getItem(product.id);
   let decreasedProductQty = parseInt(storedQuantity) - 1;
   if (decreasedProductQty >= 1) {
-    for(let i=0; i<listOfPrices.length; i++){
-      if(listOfPrices[i].id === product.id) {
+    for (let i = 0; i < listOfPrices.length; i++) {
+      if (listOfPrices[i].id === product.id) {
         let newPrice = decreasedProductQty * product.price;
         listOfPrices[i].price = newPrice;
         localStorage.setItem(product.id, decreasedProductQty);
-        document.getElementById("qty-"+ product.id).innerText = decreasedProductQty;
+        document.getElementById("qty-" + product.id).innerText = decreasedProductQty;
         document.getElementById("subTotal-" + product.id).innerHTML = '<i class="fas fa-dollar-sign"></i> ' + newPrice;
         displayTotalPrice();
       };
     };
-       
-  }else {
-      // document.getElementById("decBtn-" + product.id).setAttribute("data-bs-content", "Top popover");
-      console.log("You cannot go under 1");
-    };
+
+  } else {
+    // document.getElementById("decBtn-" + product.id).setAttribute("data-bs-content", "Top popover");
+    console.log("You cannot go under 1");
+  };
 };
 
 function increaseQty(product) {
   let storedQuantity = localStorage.getItem(product.id);
   let increasedProductQty = parseInt(storedQuantity) + 1;
   if (increasedProductQty <= product.quantity) {
-    for(let i=0; i<listOfPrices.length; i++){
-      if(listOfPrices[i].id === product.id) {
+    for (let i = 0; i < listOfPrices.length; i++) {
+      if (listOfPrices[i].id === product.id) {
         let newPrice = increasedProductQty * product.price;
         listOfPrices[i].price = newPrice;
         localStorage.setItem(product.id, increasedProductQty);
-        document.getElementById("qty-"+ product.id).innerText = increasedProductQty;
+        document.getElementById("qty-" + product.id).innerText = increasedProductQty;
         document.getElementById("subTotal-" + product.id).innerHTML = '<i class="fas fa-dollar-sign"></i> ' + newPrice;
         displayTotalPrice();
       };
     };
 
-  }else {
+  } else {
     // showAction(message, "The quantity you want is bigger than the actual stock! please check your cart!", true);
     console.log("You cannot exceed stock quantity");
   };
@@ -274,50 +273,50 @@ document.getElementById("buyBtn").addEventListener("click", buyProductsFromCart)
 
 function buyProductsFromCart() {
   retrieveKeysFromStorage();
-  if(cartList.length>0){
+  if (cartList.length > 0) {
     cartFetchApi.getAllProducts()
-    .then(products => {
-      productsFromServer = products;
-      checkActualQty();
-    })
-    .then(() => {
-    let sumOfPrices = listOfPrices.map(items => items.price).reduce((prev, curr) => prev + curr, 0);
+      .then(products => {
+        productsFromServer = products;
+        checkActualQty();
+      })
+      .then(() => {
+        let sumOfPrices = listOfPrices.map(items => items.price).reduce((prev, curr) => prev + curr, 0);
         document.getElementById("cartTitle").innerHTML = `You bought ${listOfPrices.length} items for <i class="fas fa-dollar-sign fs-2"></i> ${sumOfPrices}`;
         keyList = [];
         cartList = [];
         listOfPrices = [];
         localStorage.clear();
         resetShoppingCart();
-    });
-  }else {
-      console.log("add products to your cart first");
-      document.getElementById("cartTitle").innerHTML = "Your cart is empty!";
-      setTimeout(() => {
-        document.getElementById("cartTitle").innerHTML = "Your Cart";
-      }, 2000);
+      });
+  } else {
+    console.log("add products to your cart first");
+    document.getElementById("cartTitle").innerHTML = "Your cart is empty!";
+    setTimeout(() => {
+      document.getElementById("cartTitle").innerHTML = "Your Cart";
+    }, 2000);
 
     //  document.getElementById("buyBtn").setAttribute("data-bs-content", "Left popover");
   };
 };
 
 function checkActualQty() {
-  for(let i=0; i< productsFromServer.length; i++) {
-    for(let j=0; j< cartList.length; j++) {
-      if(cartList[j].id === productsFromServer[i].id) {
-        if(productsFromServer[i].quantity >0) {
+  for (let i = 0; i < productsFromServer.length; i++) {
+    for (let j = 0; j < cartList.length; j++) {
+      if (cartList[j].id === productsFromServer[i].id) {
+        if (productsFromServer[i].quantity > 0) {
           let modifiedQty = parseInt(productsFromServer[i].quantity) - parseInt(localStorage.getItem(productsFromServer[i].id));
           let updatedProduct = productsFromServer[i];
           updatedProduct.quantity = modifiedQty.toString();
           cartFetchApi.updateProduct(updatedProduct);
           console.log(updatedProduct);
-        }else {
+        } else {
           console.log("quantity is 0");
         };
       };
     };
   };
 };
-  
+
 function resetShoppingCart() {
   document.getElementById("cartTableBody").innerHTML = "";
   document.getElementById("totalPrice").innerHTML = `Total:  <i class="fas fa-dollar-sign"></i>0</span>`;
