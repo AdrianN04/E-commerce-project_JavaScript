@@ -23,7 +23,13 @@ function getResourcesFromPage() {
     .then(responseItem => {
       displayProductDetails(responseItem);
     })
-}
+    .then(()=> {
+      setTimeout(() => {
+        document.querySelector(".loader").classList.add("hidden");
+        document.querySelector("main").classList.remove("hidden");
+      }, 3000);
+    });
+};
 
 function displayProductDetails(product) {
 

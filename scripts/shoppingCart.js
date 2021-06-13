@@ -28,6 +28,12 @@ function getAndDisplayCartProducts() {
           cartList.push(response);
           addProductsToCart(response);
         })
+        .then(()=> {
+          setTimeout(() => {
+            document.querySelector(".loader").classList.add("hidden");
+            document.querySelector("main").classList.remove("hidden");
+          }, 3000);
+        })
         .then(() => {
           displayTotalPrice();
         });

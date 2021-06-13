@@ -14,6 +14,12 @@ function getAndDisplayProducts() {
       .then(products => {
         productsList = products;
         productsList.forEach(product => addProductsToDom(product));
+      })
+      .then(()=> {
+        setTimeout(() => {
+          document.querySelector(".loader").classList.add("hidden");
+          rowContainer.classList.remove("hidden");
+        }, 2000);
       });
   };
 function addProductsToDom(product) {

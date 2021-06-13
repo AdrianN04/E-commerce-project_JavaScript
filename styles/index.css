@@ -29,6 +29,7 @@ main div div {
 main div div:hover {
   transform: scale(1.1);
   box-shadow: rgba(50, 50, 93, 0.25) 0px 20px 50px -10px, rgba(0, 0, 0, 0.3) 0px 10px 30px -10px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+  overflow: hidden;
 }
 
 .fa{
@@ -92,3 +93,10 @@ button {
   width: 2rem;
   height: 2rem;
 }
+
+
+@media screen and (max-width: 600px) {
+ main{
+    width: 80%;
+  }
+};
