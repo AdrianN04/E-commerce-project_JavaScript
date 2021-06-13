@@ -10,6 +10,7 @@ const rowContainer = document.getElementById("rowContainer");
 window.addEventListener("load", getAndDisplayProducts);
 
 function getAndDisplayProducts() {
+  
     fetchApi.getAllProducts()
       .then(products => {
         productsList = products;

@@ -3,49 +3,65 @@
 
 window.addEventListener("load", retrieveKeysFromStorage);
 window.addEventListener("load", getAndDisplayCartProducts);
+window.addEventListener('storage', () => {
+  location.reload();
+  // retrieveKeysFromStorage();
+  // getAndDisplayCartProducts();
+  // renderTable();
+});
+
 
 let cartFetchApi = new FetchApi();
-const cartList = [];
-const keyList = [];
-let indexNumber;
-const listOfPrices = [];
-const productsFromServer = [];
+let cartList = [];
+let  keyList = [];
+// let indexNumber = 0;
+let listOfPrices = [];
+let productsFromServer = [];
 
 function retrieveKeysFromStorage() {
   for (let i = 0; i < localStorage.length; i++) {
     let keyId = localStorage.key(i);
     keyList.push(keyId)
-  }
-}
+  };
+};
 
 function getAndDisplayCartProducts() {
   for (let i = 0; i < keyList.length; i++) {
     let keyId = keyList[i];
     if (keyId !== undefined) {
-      cartFetchApi.getProduct(keyId)
-        .then(response => {
-          response.id = keyId;
-          cartList.push(response);
-          addProductsToCart(response);
-
-        })
-        .then(() => {
-          displayTotalPrice();
-        })
+      getProductAfterId(keyId);
     };
   };
   cartFetchApi.afterLoad();
 };
 
+function getProductAfterId(id) {
+  cartFetchApi.getProduct(id)
+    .then(response => {
+      response.id = id;
+      cartList.push(response);
+      addProductsToCart(response);
+    })
+    .then(() => {
+      displayTotalPrice();
+    })
+};
 
 function displayTotalPrice() {
   let sumOfPrices = listOfPrices.map(items => items.price).reduce((prev, curr) => prev + curr, 0);
   document.getElementById("totalPrice").innerHTML = `Total:  <i class="fas fa-dollar-sign"></i> ${sumOfPrices}`;
-}
+};
+
+// function renderTable() {
+//   document.getElementById("cartTableBody").innerHTML = "";
+//   retrieveKeysFromStorage();
+//   indexNumber = 0;
+//   for(let i=0; i<cartList.length; i++){
+//     addProductsToCart(cartList[i]);
+//   };
+// }
 
 function addProductsToCart(product) {
-  // console.log(product)
-
   let tableBody = document.getElementById("cartTableBody");
 
   //Table row
@@ -54,8 +70,8 @@ function addProductsToCart(product) {
   tableRow.setAttribute("class", "mt-3 align-middle container-fluid");
 
   //Table td for index number
-  let tableIndex = createTableIndex(indexNumber++);
-  tableRow.appendChild(tableIndex);
+  // let tableIndex = createTableIndex(indexNumber++);
+  // tableRow.appendChild(tableIndex);
 
   //Table td for image
   let tableImg = document.createElement("td");
