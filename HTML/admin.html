@@ -61,6 +61,38 @@
         </div>
       </div>
     </nav>
+
+    <!-- Login Container -->
+    <div id="loginContainer" class="container-fluid">
+      <form class="position-absolute top-50 start-50 translate-middle">
+        <div class="mb-3">
+          <label for="adminName" class="form-label">Name:</label>
+          <input
+            type="text"
+            class="form-control"
+            id="adminName"
+            placeholder="Your name..."
+            required
+            value="Adrian"
+          />
+        </div>
+        <div class="mb-3">
+          <label for="adminPass" class="form-label">Password:</label>
+          <input
+            type="password"
+            class="form-control"
+            id="adminPassword"
+            placeholder="Password..."
+            required
+          />
+        </div>
+        <button id="submitAdmin" class="btn btn-success">Submit</button>
+        <p id="adminMessage" class="mt-2 hidden text-danger ">Please insert the correct password!</p>
+      </form>
+      
+    </div>
+
+    <div id="mainContainer" class="collapse">
     <!-- loader container -->
     <div class="loader">Loading...</div>
     <!-- main container -->
@@ -221,6 +253,7 @@
         </div>
       </div>
     </main>
+  </div>
     <!-- Page footer -->
     <footer class="fixed-bottom text-muted bg-dark">
       <div class="container mt-2">

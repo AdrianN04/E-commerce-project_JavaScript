@@ -35,6 +35,7 @@ function displayProductDetails(product) {
   document.getElementById("productName").innerText = product.name;
   document.getElementById("productDescription").innerText = product.description;
   document.getElementById("productPrice").innerHTML = `<i class="fas fa-dollar-sign"></i>  ${product.price}`;
+  productInput.value = "1";
   if(product.quantity === "0") {
     document.getElementById("productQuantity").innerText = "Out of stock";
     document.getElementById("productQuantity").classList.add("text-danger");
@@ -44,6 +45,8 @@ function displayProductDetails(product) {
 
   if(product.quantity === "0") {
     document.getElementById("cartButtonContainer").disabled = true;
+    productInput.disabled = true;
+    productInput.value = "";
   }else {
     document.getElementById("cartButtonContainer").addEventListener("click", (e) => {
       e.preventDefault();

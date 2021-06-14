@@ -1,3 +1,4 @@
+//Variables from HTML
 const form = document.getElementById("product-form");
 const addProductsBtn = document.getElementById("addProductsBtn");
 let productNameInput = document.getElementById("productNameInput");
@@ -9,14 +10,32 @@ const resetFormBtn = document.getElementById("resetBtn");
 const closeFormBtn = document.getElementById("closeBtn");
 const showFormButton = document.getElementById("showFormButton");
 const updateProductBtn = document.getElementById("updateBtn");
+const submitAdmin = document.getElementById("submitAdmin");
+let adminNameInput = document.getElementById("adminName");
+let adminPassInput = document.getElementById("adminPassword");
 
-
+//Global variables
 let fetchApi = new FetchApi();
 let productsList = [];
 let indexNumber = 0;
 
 
-window.addEventListener("load", loadAllProducts);
+// window.addEventListener("load", loadAllProducts);
+
+submitAdmin.addEventListener("click", (e) => {
+  e.preventDefault();
+  checkAdminFromValidity()
+  if(adminPassInput.value === "pass") {
+    document.getElementById("loginContainer").classList.add("collapse");
+    document.getElementById("mainContainer").classList.remove("collapse");
+    loadAllProducts();
+  }else {
+    document.getElementById("adminMessage").classList.remove("hidden");
+    setTimeout(()=> {
+      document.getElementById("adminMessage").classList.add("hidden");
+    }, 1500)
+  }
+});
 
 addProductsBtn.addEventListener("click", (e) => {
   e.preventDefault();
@@ -27,6 +46,21 @@ showFormButton.addEventListener("click", resetForm);
 
 resetFormBtn.addEventListener("click", emptyFormInputs);
 
+//Function to load all products from the server
+function loadAllProducts() {
+  indexNumber = 0;
+  document.getElementById("tableBody").innerHTML = "";
+  fetchApi.getAllProducts()
+    .then(products => {
+      productsList = products;
+      productsList.forEach(product => addProductToTable(product));
+    })
+    .then(()=> {
+      fetchApi.afterLoad();
+    });
+};
+
+//Function to empty the inputs and to modify the buttons
 function emptyFormInputs() {
   resetForm();
   updateProductBtn.classList.add("collapse");
@@ -35,28 +69,27 @@ function emptyFormInputs() {
   resetFormBtn.classList.add("collapse");
 };
 
-function loadAllProducts() {
-  indexNumber = 0;
-  document.getElementById("tableBody").innerHTML = "";
-  fetchApi.getAllProducts()
-    .then(products => {
-      productsList = products;
-      productsList.forEach(product => addProductToTable(product));
-      // renderTable();
-    })
-    .then(()=> {
-      fetchApi.afterLoad();
-    });
+function checkAdminFromValidity() {
+  let form = document.querySelector("form");
+  for(let i=0; i<form.length; i++) {
+    if(form[i].value === "") {
+      form[i].classList.add("invalid");
+    }else {
+      form[i].classList.remove("invalid");
+    };
+  };
 };
 
+//Function to render the table
 function renderTable() {
   indexNumber = 0;
   document.getElementById("tableBody").innerHTML = "";
   for(let i=0; i<productsList.length; i++){
     addProductToTable(productsList[i]);
-  }
-}
+  };
+};
 
+//Function to display all products on the page
 function addProductToTable(product) {
   let tableBody = document.getElementById("tableBody");
 
@@ -208,7 +241,7 @@ function getProductValuesFromForm() {
   let newProduct = new Product(productImg, productName, productPrice, productQuantity, productDescription);
 
   return newProduct;
-}
+};
 
 
 function editProductById(productId) {
@@ -239,7 +272,6 @@ function displaySelectedProductToForm(product) {
 
 function saveUpdatedProduct(product) {
   let validation = validateForm();
-
   if (validation) {
     let updatedProductObj = getProductValuesFromForm();
     updatedProductObj.id = product.id;
@@ -251,9 +283,9 @@ function saveUpdatedProduct(product) {
       })
       .then(()=> {
         loadAllProducts();
-      })
+      });
   };
-}
+};
 
 function updateProductInterface(product, updatedProductObj) {
 
@@ -282,16 +314,16 @@ function removeProductById(id) {
   for (let i = 0; i < productsList.length; i++) {
     if (productsList[i].id === id) {
       productsList.splice(i, 1);
+      localStorage.removeItem(id);
       let node = document.getElementById(id);
       node.parentNode.removeChild(node);
       renderTable();
     };
   };
- 
-}
+};
 
 
 function goToDetailsPage(id) {
   // window.open("detailsPage.html?id=" + id);
   window.location.href= "detailsPage.html?id=" + id;
-}
+};

@@ -7,7 +7,6 @@ window.addEventListener('storage', () => {
   location.reload();
   // retrieveKeysFromStorage();
   // getAndDisplayCartProducts();
-  // renderTable();
 });
 
 
@@ -51,15 +50,6 @@ function displayTotalPrice() {
   let sumOfPrices = listOfPrices.map(items => items.price).reduce((prev, curr) => prev + curr, 0);
   document.getElementById("totalPrice").innerHTML = `Total:  <i class="fas fa-dollar-sign"></i> ${sumOfPrices}`;
 };
-
-// function renderTable() {
-//   document.getElementById("cartTableBody").innerHTML = "";
-//   retrieveKeysFromStorage();
-//   indexNumber = 0;
-//   for(let i=0; i<cartList.length; i++){
-//     addProductsToCart(cartList[i]);
-//   };
-// }
 
 function addProductsToCart(product) {
   let tableBody = document.getElementById("cartTableBody");
